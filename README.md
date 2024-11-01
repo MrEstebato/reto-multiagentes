@@ -43,7 +43,7 @@ El reto propuesto por el socio formador “Ponte Pizza” es rediseñar un espac
 
 ## Diagrama de Protocolos de Interacción
 
-![Diagrama de Protocolos](ruta_a_diagrama_protocolos.png)
+![Diagrama de Protocolos](imagenesREADME/Diagrama_Protocolos_Interaccion_Ponte_Pizza.png)
 
 ## Plan de Trabajo y Aprendizaje Adquirido
 
