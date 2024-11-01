@@ -13,7 +13,7 @@
   - **Áreas de oportunidad:** A veces no comunico asertivamente mis ideas y me cuesta asignar tiempos específicos para la realización de tarea.
   - **Expectativas del bloque:** Espero poder trabajar de manera fluida y eficiente junto con el socio formador para poder lograr, como equipo, un producto final con calidad en el que apliquemos los conocimientos adquiridos en la materia y al mismo tiempo aporte valor a la empresa del socio.  
  
-- Stephanie Ortega Espinosa- Rol en el equipo  
+- Stephanie Ortega Espinosa - Coordinadora y diseñadora
   - **Fortalezas:** Me considero una persona enfocada, atenta a los detalles, líder y buena coordinadora.
   - **Áreas de oportunidad:** Creo que puedo mejorar en mi compromiso respecto al esfuerzo requerido en cada tarea.
   - **Expectativas del bloque:** Espero desarrollar y reforzar ciertas áreas enfocadas a las matemáticas.
