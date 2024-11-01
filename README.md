@@ -30,7 +30,15 @@
 
 **Expectativas del equipo**  
 - ¿Qué esperan lograr como equipo al finalizar el bloque?
+  - Como equipo, esperamos finalizar el bloque con una solución eficiente que optimice el espacio de almacenamiento y la logística de distribución en Ponte Pizza, logrando una reducción de tiempos y costos en las entregas a sucursales. Además, buscamos fortalecer nuestras habilidades técnicas y de trabajo colaborativo, así como generar resultados cuantificables que demuestren la efectividad de nuestro sistema. Al concluir, aspiramos a entregar una documentación completa que sirva como base para futuras mejoras y optimizaciones en los procesos de la empresa.
 - Listado de metas específicas del equipo para este proyecto.
+  - 1. Optimizar la distribución y el uso del espacio en el almacén.
+  - 2. Reducir los tiempos de preparación y entrega a las sucursales.
+  - 3. Desarrollar un sistema de simulación eficiente para modelar escenarios de logística.
+  - 4. Implementar métricas que midan la eficiencia del flujo de trabajo en el almacén.
+  - 5. Crear documentación completa y detallada del sistema y los resultados obtenidos.
+  - 6. Fortalecer habilidades de colaboración y comunicación en equipo.
+  - 7. Generar un análisis de resultados que sirva para futuras optimizaciones del almacén.
 - Compromisos individuales y colectivos para alcanzar los objetivos.
 
 ## Descripción del Reto a Desarrollar
