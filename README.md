@@ -18,10 +18,10 @@
   - **Áreas de oportunidad:** Creo que puedo mejorar en mi compromiso respecto al esfuerzo requerido en cada tarea.
   - **Expectativas del bloque:** Espero desarrollar y reforzar ciertas áreas enfocadas a las matemáticas.
  
-- Gabriel Ponce Peña - Rol en el equipo  
-  - **Fortalezas:** Descripción de fortalezas personales (ej. manejo de bases de datos, habilidades de programación, liderazgo, etc.).
-  - **Áreas de oportunidad:** Descripción de áreas en las que el integrante desea mejorar.
-  - **Expectativas del bloque:** ¿Qué espera aprender o lograr en este bloque?
+- Gabriel Ponce Peña - Desarrollador
+  - **Fortalezas:** Cuento con habilidades en diversas tecnologías de programación, como Java, JavaScript, React, Node y Python, entre otras. Además, tengo sólidas habilidades blandas esenciales para el desarrollo diario.
+  - **Áreas de oportunidad:** Reconozco que tengo una oportunidad de mejora en cuanto a la procrastinación, ya que tiendo a esperar hasta el último momento en algunos proyectos.
+  - **Expectativas del bloque:** Espero reforzar los distintos conocimientos que sean relevantes para mi carrera profesional, de la misma manera que han sido reforzado a lo largo de la universidad
  
 - Ángel Rogelio Cruz Ibarra - Analista  
   - **Fortalezas:** Me considero una persona creativa, proactiva y con habilidades para resolver problemas de manera efectiva.
