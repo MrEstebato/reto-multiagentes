@@ -3,7 +3,7 @@
 ## Conformación del Equipo
 
 **Integrantes del equipo**  
-- Esteban Leal Menéndez - Colider  
+- Esteban Leal Menéndez - Colíder  
   - **Fortalezas:** Soy una persona entusiasta que aprende rápido. Me gusta retarme y descubrir talentos nuevos. Trabajo bien en equipo y soy líder cuando se necesita.
   - **Áreas de oportunidad:** Puedo llegar a procrastinar tareas lo cual me puede llegar a generar estrés y disminuir mi eficiencia y eficacia.
   - **Expectativas del bloque:** Espero fortalecer el trabajo en equipo, fortalecer la comunicación y el análisis espacial.
