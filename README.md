@@ -3,10 +3,10 @@
 ## Conformación del Equipo
 
 **Integrantes del equipo**  
-- Esteban Leal Menéndez - Rol en el equipo  
-  - **Fortalezas:** Descripción de fortalezas personales (ej. manejo de bases de datos, habilidades de programación, liderazgo, etc.).
-  - **Áreas de oportunidad:** Descripción de áreas en las que el integrante desea mejorar.
-  - **Expectativas del bloque:** ¿Qué espera aprender o lograr en este bloque?
+- Esteban Leal Menéndez - Colider  
+  - **Fortalezas:** Soy una persona entusiasta que aprende rápido. Me gusta retarme y descubrir talentos nuevos. Trabajo bien en equipo y soy líder cuando se necesita.
+  - **Áreas de oportunidad:** Puedo llegar a procrastinar tareas lo cual me puede llegar a generar estrés y disminuir mi eficiencia y eficacia.
+  - **Expectativas del bloque:** Espero fortalecer el trabajo en equipo, fortalecer la comunicación y el análisis espacial.
  
 - Daniel Arteaga Mercado - Líder  
   - **Fortalezas:** Soy una persona responsable y comprometida con los objetivos planteados, me desenvuelvo de manera adecuada al trabajar colaborativamente y siempre trato de aportar ideas innovadoras/creativas.
