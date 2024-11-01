@@ -40,6 +40,21 @@
     6. Fortalecer habilidades de colaboración y comunicación en equipo.
     7. Generar un análisis de resultados que sirva para futuras optimizaciones del almacén.
 - Compromisos individuales y colectivos para alcanzar los objetivos.
+  - Individuales
+    - Esteban Leal Menéndez - Colíder y desarrollador: Me comprometo a ser proactivo en el aprendizaje y a liderar en momentos clave, mientras manejo mi tiempo para evitar la procrastinación.
+
+    - Daniel Arteaga Mercado - Líder: Me comprometo a comunicar mis ideas de manera más asertiva y a establecer tiempos claros para las tareas, fomentando un trabajo colaborativo eficiente.
+
+    - Stephanie Ortega Espinosa - Coordinadora y diseñadora: Me comprometo a coordinar eficazmente al equipo, asegurando el cumplimiento de las tareas y a esforzarme más en cada actividad para mejorar mis resultados.
+
+    - Gabriel Ponce Peña - Desarrollador: Me comprometo a utilizar mis habilidades de programación de manera efectiva y a gestionar mejor mi tiempo para evitar la procrastinación en los proyectos.
+
+    - Ángel Rogelio Cruz Ibarra - Analista: Me comprometo a planificar mis tareas de manera más eficiente y a contribuir con soluciones creativas en el equipo, mejorando mi gestión del tiempo.
+  - Colectivos
+    - Colaboración activa: Trabajar juntos y compartir ideas.
+    - Responsabilidad compartida: Cumplir con los plazos y revisar el progreso.
+    - Comunicación efectiva: Mantener canales abiertos para resolver problemas.
+    - Evaluación continua: Revisar procesos y ajustar estrategias regularmente.
 
 ## Descripción del Reto a Desarrollar
 
