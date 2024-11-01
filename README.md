@@ -8,10 +8,10 @@
   - **Áreas de oportunidad:** Descripción de áreas en las que el integrante desea mejorar.
   - **Expectativas del bloque:** ¿Qué espera aprender o lograr en este bloque?
  
-- Daniel Arteaga Mercado - Rol en el equipo  
-  - **Fortalezas:** Descripción de fortalezas personales (ej. manejo de bases de datos, habilidades de programación, liderazgo, etc.).
-  - **Áreas de oportunidad:** Descripción de áreas en las que el integrante desea mejorar.
-  - **Expectativas del bloque:** ¿Qué espera aprender o lograr en este bloque?
+- Daniel Arteaga Mercado - Lider  
+  - **Fortalezas:** Soy una persona responsable y comprometida con los objetivos planteados, me desenvuelvo de manera adecuada al trabajar colaborativamente y siempre trato de aportar ideas innovadoras/creativas.
+  - **Áreas de oportunidad:** A veces no comunico asertivamente mis ideas y me cuesta asignar tiempos específicos para la realización de tarea.
+  - **Expectativas del bloque:** Espero poder trabajar de manera fluida y eficiente junto con el socio formador para poder lograr, como equipo, un producto final con calidad en el que apliquemos los conocimientos adquiridos en la materia y al mismo tiempo aporte valor a la empresa del socio.  
  
 - Stephanie Ortega Espinosa- Rol en el equipo  
   - **Fortalezas:** Descripción de fortalezas personales (ej. manejo de bases de datos, habilidades de programación, liderazgo, etc.).
@@ -35,7 +35,7 @@
 
 ## Descripción del Reto a Desarrollar
 
-Escribir Descripción
+El reto propuesto por el socio formador “PontePizza” es rediseñar un espacio, el cual actualmente se utiliza como “bodega”, con el fin de que este sirva como espacio de almacenaje de materia prima para la preparación de las pizzas, en este se colocarán refrigeradores, estanterías y congeladores. Desde este espacio que se encuentra en la parte trasera del local central de “PontePizza”, también se pretende distribuir a las demás sucursales de la ciudad, ya que actualmente el proveedor reparte sucursal por sucursal la materia prima, esto generará que se optimicen las rutas de entrega, se reduzca el tiempo de espera de las sucursales y se disminuyan los costos logísticos. Nosotros como ingenieros en sistemas computacionales modelaremos el espacio tridimensional y el movimiento del personal dentro de este espacio como agentes informáticos inteligentes para que se pueda simular diferentes escenarios de trabajo, optimizar la distribución de los productos, reducir el tiempo de preparación de pedidos y mejorar la eficiencia general del almacén.
 
 ## Diagrama de agentes involucrados
 
