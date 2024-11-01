@@ -23,10 +23,10 @@
   - **Áreas de oportunidad:** Descripción de áreas en las que el integrante desea mejorar.
   - **Expectativas del bloque:** ¿Qué espera aprender o lograr en este bloque?
  
-- Ángel Rogelio Cruz Ibarra - Rol en el equipo  
-  - **Fortalezas:** Descripción de fortalezas personales (ej. manejo de bases de datos, habilidades de programación, liderazgo, etc.).
-  - **Áreas de oportunidad:** Descripción de áreas en las que el integrante desea mejorar.
-  - **Expectativas del bloque:** ¿Qué espera aprender o lograr en este bloque?
+- Ángel Rogelio Cruz Ibarra - Analista  
+  - **Fortalezas:** Me considero una persona creativa, proactiva y con habilidades para resolver problemas de manera efectiva.
+  - **Áreas de oportunidad:** Quiero mejorar en la gestión del tiempo y en la planificación de tareas para ser más eficiente.
+  - **Expectativas del bloque:** Espero adquirir conocimientos prácticos sobre la logística y la gestión de inventarios en un entorno real.
 
 **Expectativas del equipo**  
 - ¿Qué esperan lograr como equipo al finalizar el bloque?
