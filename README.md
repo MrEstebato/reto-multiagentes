@@ -14,9 +14,9 @@
   - **Expectativas del bloque:** Espero poder trabajar de manera fluida y eficiente junto con el socio formador para poder lograr, como equipo, un producto final con calidad en el que apliquemos los conocimientos adquiridos en la materia y al mismo tiempo aporte valor a la empresa del socio.  
  
 - Stephanie Ortega Espinosa- Rol en el equipo  
-  - **Fortalezas:** Descripción de fortalezas personales (ej. manejo de bases de datos, habilidades de programación, liderazgo, etc.).
-  - **Áreas de oportunidad:** Descripción de áreas en las que el integrante desea mejorar.
-  - **Expectativas del bloque:** ¿Qué espera aprender o lograr en este bloque?
+  - **Fortalezas:** Me considero una persona enfocada, atenta a los detalles, líder y buena coordinadora.
+  - **Áreas de oportunidad:** Creo que puedo mejorar en mi compromiso respecto al esfuerzo requerido en cada tarea.
+  - **Expectativas del bloque:** Espero desarrollar y reforzar ciertas áreas enfocadas a las matemáticas.
  
 - Gabriel Ponce Peña - Rol en el equipo  
   - **Fortalezas:** Descripción de fortalezas personales (ej. manejo de bases de datos, habilidades de programación, liderazgo, etc.).
@@ -52,13 +52,3 @@ El reto propuesto por el socio formador “Ponte Pizza” es rediseñar un espac
 ## Diagrama de Protocolos de Interacción
 
 ![Diagrama de Protocolos](imagenesREADME/Diagrama_Protocolos_Interaccion_Ponte_Pizza.png)
-
-## Plan de Trabajo y Aprendizaje Adquirido
-
-1. **Plan de Trabajo:**  
-   - Etapa 1: Descripción de actividades a realizar en esta etapa.
-   - Etapa 2: Descripción de actividades a realizar en esta etapa.
-   - …
-
-2. **Aprendizajes Adquiridos:**  
-   - Al final de cada etapa, documentaremos lo aprendido, los desafíos enfrentados y cómo se superaron.
