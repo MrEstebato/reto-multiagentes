@@ -1,9 +1,34 @@
 import pandas as pd
-import time
 
 
-def main():
-    csv_file = pd.read_csv("Prod6.csv", encoding="ISO-8859-1")
+def VolCalc(Options):
+
+    inputCsvName = Options.ListaCSV
+    outputCsvName = Options.salidaCSV
+
+    RackDimsC = [float(x) for x in Options.VRackC.split(":")]
+    RackDimsR = [float(x) for x in Options.VRackR.split(":")]
+    RackDimsS = [float(x) for x in Options.VRackS.split(":")]
+
+    VolRackC = 1
+    for DimC in RackDimsC:
+        VolRackC *= DimC
+
+    VolRackC_m3 = VolRackC / 1e6
+
+    VolRackR = 1
+    for DimR in RackDimsR:
+        VolRackR *= DimR
+
+    VolRackR_m3 = VolRackR / 1e6
+
+    VolRackS = 1
+    for DimS in RackDimsS:
+        VolRackS *= DimS
+
+    VolRackS_m3 = VolRackS / 1e6
+
+    csv_file = pd.read_csv(inputCsvName, encoding="ISO-8859-1")
     dry_group = csv_file.groupby("Condicion").get_group("S")
     r_cold_group = csv_file.groupby("Condicion").get_group("R")
     c_cold_group = csv_file.groupby("Condicion").get_group("C")
@@ -55,43 +80,28 @@ def main():
 
     print(dry_group)
 
-    racks = {"S": [], "R": [], "C": []}
-    current_rack = {"S": [], "R": [], "C": []}
-    current_racksize = {"S": rack_capacity, "R": rack_capacity, "C": rack_capacity}
-
-    for condition in ["S", "R", "C"]:
-        condition_products = csv_file[csv_file["Condicion"] == condition]
-        for _, row in condition_products.iterrows():
-            prod_amount = int(row["C. Ajustado"])
-            prod_name = row["DESCRIPCION COMPLETA"]
-            volume_per_unit = float(row["Volumen Ajustado"])
-
-            if volume_per_unit > rack_capacity:
-                # Si el producto es muy grande para el rack
-                print(f"El producto {prod_name} es muy grande para el rack")
-                continue
-
-            while prod_amount > 0:
-                if current_racksize[condition] >= volume_per_unit:
-                    current_rack[condition].append(prod_name)
-                    current_racksize[condition] -= volume_per_unit
-                    prod_amount -= 1
-                    if current_racksize[condition] == 0:
-                        racks[condition].append(current_rack[condition])
-                        current_rack[condition] = []
-                        current_racksize[condition] = rack_capacity
-                else:
-                    # Si el producto es muy grande para el rack, inicia uno nuevo.
-                    if current_rack[condition]:
-                        racks[condition].append(current_rack[condition])
-                    current_rack[condition] = []
-                    current_racksize[condition] = rack_capacity
-
-        # Añade los productos restantes al rack
-        if current_rack[condition]:
-            racks[condition].append(current_rack[condition])
-            current_rack[condition] = []
-            current_racksize[condition] = rack_capacity
+    racks = []
+    rack_not_full = []
+    rack_members_mark_volume = 1.9
+    for i in range(len(dry_group)):
+        prod_amount = dry_group["C. Maximo"].iloc[i]
+        print(prod_amount)
+        prod_name = dry_group["DESCRIPCION COMPLETA"].iloc[i]
+        print(prod_name)
+        _rack = rack_not_full
+        _racksize = rack_members_mark_volume
+        while prod_amount > 0:
+            _racksize -= dry_group["Volumen (m^3)"].iloc[i]
+            prod_amount -= 1
+            _rack.append(prod_name)
+            if _racksize <= 0:
+                racks.append(_rack)
+                _rack = []
+                rack_not_full = []
+                _racksize = rack_members_mark_volume
+        if _rack:
+            racks.append(_rack)
+        rack_not_full = _rack
 
     data = []
 
@@ -106,14 +116,9 @@ def main():
                     {"Product": product, "Rack": rack_name, "Quantity": quantity}
                 )
 
-    # Process racks for each condition
-    process_racks(racks["S"], "S")
-    process_racks(racks["R"], "R")
-    process_racks(racks["C"], "C")
-
-    # Create DataFrame and save to CSV
-    df_output = pd.DataFrame(data)
-    df_output.to_csv("rack_inventory.csv", index=False)
+    # Create a DataFrame and save to CSV
+    df = pd.DataFrame(data)
+    df.to_csv("rack_inventory.csv", index=False)
 
 
 if __name__ == "__main__":
