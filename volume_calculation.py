@@ -1,8 +1,37 @@
 import pandas as pd
 
 
-def main():
-    csv_file = pd.read_csv("Prod2.csv", encoding="ISO-8859-1")
+def VolCalc(Options):
+
+    inputCsvName = Options.ListaCSV
+    outputCsvName = Options.salidaCSV
+    
+    RackDimsC = [float(x) for x in Options.VRackC.split(":")]
+    RackDimsR = [float(x) for x in Options.VRackR.split(":")]
+    RackDimsS = [float(x) for x in Options.VRackS.split(":")]
+
+    VolRackC = 1
+    for DimC in RackDimsC:
+        VolRackC *= DimC
+
+    VolRackC_m3 = VolRackC / 1e+6
+
+    VolRackR = 1
+    for DimR in RackDimsR:
+        VolRackR *= DimR
+
+    VolRackR_m3 = VolRackR / 1e+6
+
+    VolRackS = 1
+    for DimS in RackDimsS:
+        VolRackS *= DimS
+
+    VolRackS_m3 = VolRackS / 1e+6
+
+    
+
+
+    csv_file = pd.read_csv(inputCsvName, encoding="ISO-8859-1")
     dry_group = csv_file.groupby("Condicion").get_group("S")
     # print(dry_group["Volumen Adaptado"].sum())
     dry_total_volume_per_product = dry_group["Volumen (m^3)"].sum()
@@ -90,7 +119,3 @@ def main():
     # Create a DataFrame and save to CSV
     df = pd.DataFrame(data)
     df.to_csv("rack_inventory.csv", index=False)
-
-
-if __name__ == "__main__":
-    main()
