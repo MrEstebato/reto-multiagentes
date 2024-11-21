@@ -1,13 +1,18 @@
 import pandas as pd
+import time
 
 
 def main():
-    csv_file = pd.read_csv("Prod2.csv", encoding="ISO-8859-1")
+    csv_file = pd.read_csv("Prod6.csv", encoding="ISO-8859-1")
     dry_group = csv_file.groupby("Condicion").get_group("S")
+    r_cold_group = csv_file.groupby("Condicion").get_group("R")
+    c_cold_group = csv_file.groupby("Condicion").get_group("C")
+
     # print(dry_group["Volumen Adaptado"].sum())
     dry_total_volume_per_product = dry_group["Volumen (m^3)"].sum()
     dry_total_volume_per_average = dry_group["Volumen Adaptado"].sum()
     rack_members_mark_volume = 1.9
+    rack_capacity = rack_members_mark_volume  # Modificar si se desea cambiar el tamaño de los racks para congelados y refrigerados
     rack_uline_volume = 0.90
     print(
         f"El volumen total de los productos secos es \n---------------------------------------\n {dry_total_volume_per_product} m^3 \n"
@@ -23,9 +28,6 @@ def main():
     )
 
     print(10 * "\n")
-
-    r_cold_group = csv_file.groupby("Condicion").get_group("R")
-    c_cold_group = csv_file.groupby("Condicion").get_group("C")
 
     # print(dry_group["Volumen Adaptado"].sum())
     cold_total_volume_per_product = (
@@ -53,43 +55,65 @@ def main():
 
     print(dry_group)
 
-    racks = []
-    rack_not_full = []
-    rack_members_mark_volume = 1.9
-    for i in range(len(dry_group)):
-        prod_amount = dry_group["C. Maximo"].iloc[i]
-        print(prod_amount)
-        prod_name = dry_group["DESCRIPCION COMPLETA"].iloc[i]
-        print(prod_name)
-        _rack = rack_not_full
-        _racksize = rack_members_mark_volume
-        while prod_amount > 0:
-            _racksize -= dry_group["Volumen (m^3)"].iloc[i]
-            prod_amount -= 1
-            _rack.append(prod_name)
-            if _racksize <= 0:
-                racks.append(_rack)
-                _rack = []
-                rack_not_full = []
-                _racksize = rack_members_mark_volume
-        if _rack:
-            racks.append(_rack)
-        rack_not_full = _rack
+    racks = {"S": [], "R": [], "C": []}
+    current_rack = {"S": [], "R": [], "C": []}
+    current_racksize = {"S": rack_capacity, "R": rack_capacity, "C": rack_capacity}
+
+    for condition in ["S", "R", "C"]:
+        condition_products = csv_file[csv_file["Condicion"] == condition]
+        for _, row in condition_products.iterrows():
+            prod_amount = int(row["C. Ajustado"])
+            prod_name = row["DESCRIPCION COMPLETA"]
+            volume_per_unit = float(row["Volumen Ajustado"])
+
+            if volume_per_unit > rack_capacity:
+                # Si el producto es muy grande para el rack
+                print(f"El producto {prod_name} es muy grande para el rack")
+                continue
+
+            while prod_amount > 0:
+                if current_racksize[condition] >= volume_per_unit:
+                    current_rack[condition].append(prod_name)
+                    current_racksize[condition] -= volume_per_unit
+                    prod_amount -= 1
+                    if current_racksize[condition] == 0:
+                        racks[condition].append(current_rack[condition])
+                        current_rack[condition] = []
+                        current_racksize[condition] = rack_capacity
+                else:
+                    # Si el producto es muy grande para el rack, inicia uno nuevo.
+                    if current_rack[condition]:
+                        racks[condition].append(current_rack[condition])
+                    current_rack[condition] = []
+                    current_racksize[condition] = rack_capacity
+
+        # Añade los productos restantes al rack
+        if current_rack[condition]:
+            racks[condition].append(current_rack[condition])
+            current_rack[condition] = []
+            current_racksize[condition] = rack_capacity
 
     data = []
-    for rack_number, rack in enumerate(racks, start=1):
-        product_counts = {}
-        for product in rack:
-            if product in product_counts:
-                product_counts[product] += 1
-            else:
-                product_counts[product] = 1
-        for product, quantity in product_counts.items():
-            data.append({"Product": product, "Rack": rack_number, "Quantity": quantity})
 
-    # Create a DataFrame and save to CSV
-    df = pd.DataFrame(data)
-    df.to_csv("rack_inventory.csv", index=False)
+    def process_racks(rack_list, prefix):
+        for idx, rack in enumerate(rack_list, start=1):
+            rack_name = f"{prefix}{idx}"
+            product_counts = {}
+            for product in rack:
+                product_counts[product] = product_counts.get(product, 0) + 1
+            for product, quantity in product_counts.items():
+                data.append(
+                    {"Product": product, "Rack": rack_name, "Quantity": quantity}
+                )
+
+    # Process racks for each condition
+    process_racks(racks["S"], "S")
+    process_racks(racks["R"], "R")
+    process_racks(racks["C"], "C")
+
+    # Create DataFrame and save to CSV
+    df_output = pd.DataFrame(data)
+    df_output.to_csv("rack_inventory.csv", index=False)
 
 
 if __name__ == "__main__":
