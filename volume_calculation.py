@@ -20,7 +20,7 @@ def VolCalc(Options):
     for DimR in RackDimsR:
         VolRackR *= DimR
 
-    VolRackR_m3 = VolRackR / 1e+6
+    VolRackR_m3 = VolRackR / 1e+6 
 
     VolRackS = 1
     for DimS in RackDimsS:

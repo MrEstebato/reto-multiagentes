@@ -1,8 +1,17 @@
-import argparse, datetime, volume_calculation
+import argparse, datetime, volume_calculation, simulation
 
 def main():
 	parser = argparse.ArgumentParser("Reto Multiagentes");
 	subparsers = parser.add_subparsers();
+	parser.set_defaults(func=None)
+	
+	subparser = subparsers.add_parser("Simulacion",  description = "Corre simulacion");
+	subparser.add_argument("--lifters", required = True, type = int, help = "Numero de montacargas");
+	subparser.add_argument("--Basuras", required = True, type = int, help = "Numero de basuras");			
+	subparser.add_argument("--Delta", required = False, type = float, default = 0.05, help = "Velocidad de simulacion");
+	subparser.add_argument("--theta", required = False, type = float, default = 0, help = "");	
+	subparser.add_argument("--radious", required = False, type = float, default = 30, help = "");
+	subparser.set_defaults(func = simulation.Simulacion);
 
 	subparser = subparsers.add_parser("BinPacking", description="Resolver el problema del bin packing")
 	subparser.add_argument("--ListaCSV", required = True, type = str)
@@ -15,8 +24,6 @@ def main():
 
 	subparser.set_defaults()
 	Options = parser.parse_args();
-	
-	print(str(Options) + "\n");
 
 	Options.func(Options);
 
