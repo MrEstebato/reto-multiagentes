@@ -8,11 +8,9 @@ def main():
 
     subparser = subparsers.add_parser("Simulacion", description="Corre simulacion")
     subparser.add_argument(
-        "--lifters", required=True, type=int, help="Numero de montacargas"
+        "--lifters", required=False, type=int, help="Numero de montacargas", default =1
     )
-    subparser.add_argument(
-        "--Basuras", required=True, type=int, help="Numero de basuras"
-    )
+
     subparser.add_argument(
         "--Delta",
         required=False,
