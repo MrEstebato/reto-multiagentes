@@ -6,10 +6,15 @@ from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
 NodosVisita = numpy.asarray( [
- 	[-325,0,400], # descarga de plastico
- 	[100,0,100], # nodo intermedio de navegacion
- 	[200,0,200], # nodo intermedio de navegacion 	
- 	[70,0,70], # nodo donde esta la carga
+	 # descarga de plastico
+ 	[200,0,-300], # nodo intermedio de navegacion
+	[0,0,-300], # nodo intermedio de navegacion
+	[-200,0,-300],
+	[-240,0,-300],
+	[-240,0,0],
+	[-240,0,200],
+	[240,0,200],
+	[200,0,-300],
 ], dtype = numpy.float64 )
 
 
