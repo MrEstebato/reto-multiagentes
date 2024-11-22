@@ -1,9 +1,11 @@
 # Reto Multiagentes
 
 ## Ejecución
+
   El comando principal de ejecución es el siguiente:
   `Python Main.py BinPacking --ListaCSV Prod6.csv --Confianza 7.43 --VRackC 122:46:160 --VRackR 80.01:208.03:213.61 --VRackS 182.9:195.5:60.96 --salidaCSV volCalculado.csv`
   Tiene las variables en el parser:
+
   - ListaCsv: La lista de productos proporcionada por el socio formador. Para este programa se tiene que usar una versión modificada de los datos ya que los ajustamos para que los cálculos fueran más precisos. Por esta razón se tiene que usar el csv `Prod6.csv`
   - Confianza: Es el márgen de error.
   - VRackC: Son las medidas de los racks que se usarán para guardar ingredientes congelados.
@@ -12,15 +14,14 @@
   - salidaCSV: Es el nombre del archivo csv donde se guardaran los productos, su cantidad en cada rack y el rack en el que están localizados.
 
     Usando BinPacking se pueden obtener los siguientes acomodos de los 3 racks de ingredientes secos obtenidos:
-    ![Rack Secos 1](imagenesREADME/Figure_1_BinPacking.png)
-    ![Rack Secos 2](imagenesREADME/Figure_2_BinPacking.png)
-    ![Rack Secos 3](imagenesREADME/Figure_3_BinPacking.png)
+    <p align="center">
+      <img src="imagenesREADME/Figure_1_BinPacking.png" width="30%">
+      <img src="imagenesREADME/Figure_2_BinPacking.png" width="30%">
+      <img src="imagenesREADME/Figure_3_BinPacking.png" width="30%">
+    </p>
 
-  El comando de la simulación es el siguiente: `python Main.py Simulacion --lifters 3 --Basuras 30 --Delta 0.5` Este comando ejecuta la simulación usando multiagentes que se mueven a cada nodo (rack). Tiene las siguientes variables en el parser:
-  - lifters: El número de agentes que habrá en la simulación
-  - Basuras: El número de ingredientes a depositar en los racks
-  - Delta: Velocidad de la simulación
-    
+  El comando de la simulación es el siguiente: `python Main.py Simulacion` Este comando ejecuta la simulación usando multiagentes que se mueven a cada nodo (rack).
+
   El comando secundario para obtener el volumen de los ingredientes congelados es `python VolumenCongelados.py`.
   
 ## Conformación del Equipo
