@@ -1,5 +1,5 @@
-/.DS_Store
-/.ipynb_checkpoints
-/Sources
-/__pycache__
-/legacy
+.DS_Store
+.ipynb_checkpoints
+Sources/
+__pycache__/
+legacy/
