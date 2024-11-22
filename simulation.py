@@ -27,6 +27,14 @@ def get_max_s_rack_id():
 					max_id = rack_id
 	return max_id
 
+def save_screenshot(filename):
+    width, height = pygame.display.get_surface().get_size()
+    glPixelStorei(GL_PACK_ALIGNMENT, 1)
+    data = glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE)
+    image = Image.frombytes("RGB", (width, height), data)
+    image = image.transpose(Image.FLIP_TOP_BOTTOM)
+    image.save(filename)
+
 def GeneracionDeNodos():
 	print("")
 
@@ -207,6 +215,7 @@ def planoText():
 def display():
 	global lifters, delta
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+	
 
 	s_rack_num =  get_max_s_rack_id()
 	
@@ -1068,6 +1077,7 @@ def Simulacion(Options):
 		lookAt(theta)
 		display()
 		display()
+		save_screenshot('simulation_screenshot.png')
 		pygame.display.flip()
 		pygame.time.wait(10)
 
