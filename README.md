@@ -14,9 +14,11 @@
   - salidaCSV: Es el nombre del archivo csv donde se guardaran los productos, su cantidad en cada rack y el rack en el que están localizados.
 
     Usando BinPacking se pueden obtener los siguientes acomodos de los 3 racks de ingredientes secos obtenidos:
-    ![Rack Secos 1](imagenesREADME/Figure_1_BinPacking.png)
-    ![Rack Secos 2](imagenesREADME/Figure_2_BinPacking.png)
-    ![Rack Secos 3](imagenesREADME/Figure_3_BinPacking.png)
+    <p align="center">
+      <img src="imagenesREADME/Figure_1_BinPacking.png" width="30%">
+      <img src="imagenesREADME/Figure_2_BinPacking.png" width="30%">
+      <img src="imagenesREADME/Figure_3_BinPacking.png" width="30%">
+    </p>
 
   El comando de la simulación es el siguiente: `python Main.py Simulacion` Este comando ejecuta la simulación usando multiagentes que se mueven a cada nodo (rack).
 
