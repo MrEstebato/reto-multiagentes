@@ -6,17 +6,12 @@ from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
 NodosVisita = numpy.asarray( [
- 	[0,0,0], # descarga de plastico
+ 	[-325,0,400], # descarga de plastico
  	[100,0,100], # nodo intermedio de navegacion
  	[200,0,200], # nodo intermedio de navegacion 	
  	[70,0,70], # nodo donde esta la carga
 ], dtype = numpy.float64 )
 
-A = numpy.zeros((3,3))
-
-A[0,1] = 1;
-A[1,2] = 1;
-A[2,0] = 1;
 
 class Lifter:
 	def __init__(self, dim, vel, textures, idx, position, currentNode):
@@ -158,7 +153,7 @@ class Lifter:
 		glPushMatrix()
 		glTranslatef(self.Position[0], self.Position[1], self.Position[2])
 		glRotatef(self.angle, 0, 1, 0)
-		glScaled(5, 5, 5)
+		glScaled(10, 10, 10)
 		glColor3f(1.0, 1.0, 1.0)
 		# front face
 		glEnable(GL_TEXTURE_2D)

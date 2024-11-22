@@ -88,14 +88,12 @@ def Init(Options):
 
 	# Posiciones inicales de los montacargas
 	Positions = numpy.zeros((Options.lifters, 3))
-
-	NodosCarga = 10 * [[70, 0, 70]]
+	Positions[0] = [410,0,-325]
 
 	CurrentNode = 0
 
-	for i, p in enumerate(Positions):
-		# i es el identificator del agente
-		lifters.append(Lifter(Settings.DimBoardX, 0.7, textures, i, p, CurrentNode))
+
+	lifters.append(Lifter(Settings.DimBoardX, 0.7, textures, 0, Positions[1], CurrentNode))
 	
 	#Importantes para obj
 	glEnable(GL_DEPTH_TEST)
@@ -118,7 +116,7 @@ def displayobj0():
     # Correcciones para dibujar el objeto en plano XZ
     glRotatef(-90.0, 1.0, 0.0, 0.0)
 	
-    glTranslatef(-185, -60, 2)
+    glTranslatef(-350, -90, 0)
     # Update scaling factors to desired dimensions
     glScale(195.50/2.5, 182.9/2.5, 60.96/2.5)
     objetos[0].render()
@@ -130,7 +128,7 @@ def displayobj1():
 	#esto depende de cada objeto
 	glRotatef(-90.0, 1.0, 0.0, 0.0)
 	glRotatef(-90.0, 0.0, 0.0, 1.0)
-	glTranslatef(-180, 70, 2)
+	glTranslatef(-380, 150, 2)
 	glScale(195.50/2.5, 182.9/2.5, 60.96/2.5)
 	objetos[0].render()  
 	glPopMatrix()
@@ -140,7 +138,7 @@ def displayobj2():
 	#correcciones para dibujar el objeto en plano XZ
 	#esto depende de cada objeto
 	glRotatef(-90.0, 1.0, 0.0, 0.0)
-	glTranslatef(170, -20, 2)
+	glTranslatef(350, 100, 2)
 	glScale(195.50/2.5, 182.9/2.5, 60.96/2.5)
 	objetos[0].render()  
 	glPopMatrix()
@@ -151,7 +149,17 @@ def displayobj3():
 	#esto depende de cada objeto
 	glRotatef(-90.0, 1.0, 0.0, 0.0)
 	glRotatef(-90.0, 0.0, 0.0, 1.0)
-	glTranslatef(-180, -70, 2)
+	glTranslatef(-380, -150, 2)
+	glScale(195.50/2.5, 182.9/2.5, 60.96/2.5)
+	objetos[0].render()  
+	glPopMatrix()
+
+def displayobj4():
+	glPushMatrix()  
+	#correcciones para dibujar el objeto en plano XZ
+	#esto depende de cada objeto
+	glRotatef(-90.0, 1.0, 0.0, 0.0)
+	glTranslatef(350, -140, 2)
 	glScale(195.50/2.5, 182.9/2.5, 60.96/2.5)
 	objetos[0].render()  
 	glPopMatrix()
@@ -187,6 +195,7 @@ def display():
 	displayobj1()
 	displayobj2()
 	displayobj3()
+	displayobj4()
 
 	# Se dibuja cubos
 	for obj in lifters:
@@ -721,12 +730,12 @@ def drawRefri():
 	glEnable(GL_TEXTURE_2D)
 	glBindTexture(GL_TEXTURE_2D, textures[-1])  # Use appropriate texture index
 
-	width = 70.0
-	depth = 70.0
-	height = 60.96
+	width = 342
+	depth = 129.0
+	height = 61.0
 
 	glPushMatrix()
-	glTranslatef(-200+depth/2 , 0, 200-width/2)  # Center of the plane
+	glTranslatef(-Settings.DimBoardX+width/2 , 0, Settings.DimBoardZ-depth/2)  # Center of the plane
 
 	# Front face
 	glBegin(GL_QUADS)
