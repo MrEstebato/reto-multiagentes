@@ -147,6 +147,9 @@ def display():
     drawColumn()
     drawColumn2()
     drawColumn3()
+    drawColumn4()
+    drawColumn5()
+    drawRefri()
 
     glColor3f(0.3, 0.3, 0.3)
     glBegin(GL_QUADS)
@@ -220,14 +223,14 @@ def display():
     # Disable textures after drawing walls
     glDisable(GL_TEXTURE_2D)
 
-
+#central
 def drawColumn():
     glEnable(GL_TEXTURE_2D)
     glBindTexture(GL_TEXTURE_2D, textures[1])  # Use appropriate texture index
 
-    width = 30.0
-    depth = 30.0
-    height = 70.0
+    width = 20.0
+    depth = 20.0
+    height = 50.0
 
     glPushMatrix()
     glTranslatef(0.0, 0.0, 0.0)  # Center of the plane
@@ -307,15 +310,14 @@ def drawColumn():
     glPopMatrix()
     glDisable(GL_TEXTURE_2D)
 
-
+#borde pequena
 def drawColumn2():
-
     glEnable(GL_TEXTURE_2D)
     glBindTexture(GL_TEXTURE_2D, textures[1])  # Use appropriate texture index
 
-    width = 30.0
-    depth = 30.0
-    height = 70.0
+    width = 15.0
+    depth = 15.0
+    height = 50.0
 
     glPushMatrix()
     glTranslatef(0.0, 0.0, -200 + depth / 2)  # Center of the plane
@@ -401,11 +403,11 @@ def drawColumn3():
     glBindTexture(GL_TEXTURE_2D, textures[1])  # Use appropriate texture index
 
     width = 70.0
-    depth = 30.0
-    height = 70.0
+    depth = 15.0
+    height = 50.0
 
     glPushMatrix()
-    glTranslatef(-200 + width / 2, 0.0, 0)  # Center of the plane
+    glTranslatef(-200 + width / 2, 0.0, -25)  # Center of the plane
 
     # Front face
     glBegin(GL_QUADS)
@@ -487,12 +489,185 @@ def drawColumn4():
     glEnable(GL_TEXTURE_2D)
     glBindTexture(GL_TEXTURE_2D, textures[1])  # Use appropriate texture index
 
-    width = 70.0
-    depth = 30.0
-    height = 70.0
+    width = 15.0
+    depth = 70.0
+    height = 50.0
 
     glPushMatrix()
-    glTranslatef(-200 + width / 2, 0.0, 0)  # Center of the plane
+    glTranslatef(-200 + depth , 0, -52)  # Center of the plane
+
+    # Front face
+    glBegin(GL_QUADS)
+    glTexCoord2f(0.0, 0.0)
+    glVertex3f(-width / 2, 0.0, depth / 2)
+    glTexCoord2f(1.0, 0.0)
+    glVertex3f(width / 2, 0.0, depth / 2)
+    glTexCoord2f(1.0, 1.0)
+    glVertex3f(width / 2, height, depth / 2)
+    glTexCoord2f(0.0, 1.0)
+    glVertex3f(-width / 2, height, depth / 2)
+    glEnd()
+
+    # Back face
+    glBegin(GL_QUADS)
+    glTexCoord2f(0.0, 0.0)
+    glVertex3f(-width / 2, 0.0, -depth / 2)
+    glTexCoord2f(1.0, 0.0)
+    glVertex3f(width / 2, 0.0, -depth / 2)
+    glTexCoord2f(1.0, 1.0)
+    glVertex3f(width / 2, height, -depth / 2)
+    glTexCoord2f(0.0, 1.0)
+    glVertex3f(-width / 2, height, -depth / 2)
+    glEnd()
+
+    # Left face
+    glBegin(GL_QUADS)
+    glTexCoord2f(0.0, 0.0)
+    glVertex3f(-width / 2, 0.0, -depth / 2)
+    glTexCoord2f(1.0, 0.0)
+    glVertex3f(-width / 2, 0.0, depth / 2)
+    glTexCoord2f(1.0, 1.0)
+    glVertex3f(-width / 2, height, depth / 2)
+    glTexCoord2f(0.0, 1.0)
+    glVertex3f(-width / 2, height, -depth / 2)
+    glEnd()
+
+    # Right face
+    glBegin(GL_QUADS)
+    glTexCoord2f(0.0, 0.0)
+    glVertex3f(width / 2, 0.0, -depth / 2)
+    glTexCoord2f(1.0, 0.0)
+    glVertex3f(width / 2, 0.0, depth / 2)
+    glTexCoord2f(1.0, 1.0)
+    glVertex3f(width / 2, height, depth / 2)
+    glTexCoord2f(0.0, 1.0)
+    glVertex3f(width / 2, height, -depth / 2)
+    glEnd()
+
+    # Top face
+    glBegin(GL_QUADS)
+    glTexCoord2f(0.0, 0.0)
+    glVertex3f(-width / 2, height, -depth / 2)
+    glTexCoord2f(1.0, 0.0)
+    glVertex3f(width / 2, height, -depth / 2)
+    glTexCoord2f(1.0, 1.0)
+    glVertex3f(width / 2, height, depth / 2)
+    glTexCoord2f(0.0, 1.0)
+    glVertex3f(-width / 2, height, depth / 2)
+    glEnd()
+
+    # Bottom face
+    glBegin(GL_QUADS)
+    glTexCoord2f(0.0, 0.0)
+    glVertex3f(-width / 2, 0.0, -depth / 2)
+    glTexCoord2f(1.0, 0.0)
+    glVertex3f(width / 2, 0.0, -depth / 2)
+    glTexCoord2f(1.0, 1.0)
+    glVertex3f(width / 2, 0.0, depth / 2)
+    glTexCoord2f(0.0, 1.0)
+    glVertex3f(-width / 2, 0.0, depth / 2)
+    glEnd()
+
+    glPopMatrix()
+    glDisable(GL_TEXTURE_2D)
+
+#borde larga
+def drawColumn5():
+    glEnable(GL_TEXTURE_2D)
+    glBindTexture(GL_TEXTURE_2D, textures[1])  # Use appropriate texture index
+
+    width = 10.0
+    depth = 140.0
+    height = 50.0
+
+    glPushMatrix()
+    glTranslatef(200-width , 0, 20)  # Center of the plane
+
+    # Front face
+    glBegin(GL_QUADS)
+    glTexCoord2f(0.0, 0.0)
+    glVertex3f(-width / 2, 0.0, depth / 2)
+    glTexCoord2f(1.0, 0.0)
+    glVertex3f(width / 2, 0.0, depth / 2)
+    glTexCoord2f(1.0, 1.0)
+    glVertex3f(width / 2, height, depth / 2)
+    glTexCoord2f(0.0, 1.0)
+    glVertex3f(-width / 2, height, depth / 2)
+    glEnd()
+
+    # Back face
+    glBegin(GL_QUADS)
+    glTexCoord2f(0.0, 0.0)
+    glVertex3f(-width / 2, 0.0, -depth / 2)
+    glTexCoord2f(1.0, 0.0)
+    glVertex3f(width / 2, 0.0, -depth / 2)
+    glTexCoord2f(1.0, 1.0)
+    glVertex3f(width / 2, height, -depth / 2)
+    glTexCoord2f(0.0, 1.0)
+    glVertex3f(-width / 2, height, -depth / 2)
+    glEnd()
+
+    # Left face
+    glBegin(GL_QUADS)
+    glTexCoord2f(0.0, 0.0)
+    glVertex3f(-width / 2, 0.0, -depth / 2)
+    glTexCoord2f(1.0, 0.0)
+    glVertex3f(-width / 2, 0.0, depth / 2)
+    glTexCoord2f(1.0, 1.0)
+    glVertex3f(-width / 2, height, depth / 2)
+    glTexCoord2f(0.0, 1.0)
+    glVertex3f(-width / 2, height, -depth / 2)
+    glEnd()
+
+    # Right face
+    glBegin(GL_QUADS)
+    glTexCoord2f(0.0, 0.0)
+    glVertex3f(width / 2, 0.0, -depth / 2)
+    glTexCoord2f(1.0, 0.0)
+    glVertex3f(width / 2, 0.0, depth / 2)
+    glTexCoord2f(1.0, 1.0)
+    glVertex3f(width / 2, height, depth / 2)
+    glTexCoord2f(0.0, 1.0)
+    glVertex3f(width / 2, height, -depth / 2)
+    glEnd()
+
+    # Top face
+    glBegin(GL_QUADS)
+    glTexCoord2f(0.0, 0.0)
+    glVertex3f(-width / 2, height, -depth / 2)
+    glTexCoord2f(1.0, 0.0)
+    glVertex3f(width / 2, height, -depth / 2)
+    glTexCoord2f(1.0, 1.0)
+    glVertex3f(width / 2, height, depth / 2)
+    glTexCoord2f(0.0, 1.0)
+    glVertex3f(-width / 2, height, depth / 2)
+    glEnd()
+
+    # Bottom face
+    glBegin(GL_QUADS)
+    glTexCoord2f(0.0, 0.0)
+    glVertex3f(-width / 2, 0.0, -depth / 2)
+    glTexCoord2f(1.0, 0.0)
+    glVertex3f(width / 2, 0.0, -depth / 2)
+    glTexCoord2f(1.0, 1.0)
+    glVertex3f(width / 2, 0.0, depth / 2)
+    glTexCoord2f(0.0, 1.0)
+    glVertex3f(-width / 2, 0.0, depth / 2)
+    glEnd()
+
+    glPopMatrix()
+    glDisable(GL_TEXTURE_2D)
+
+def drawRefri():
+    glEnable(GL_TEXTURE_2D)
+    glBindTexture(GL_TEXTURE_2D, textures[-1])  # Use appropriate texture index
+
+    width = 70.0
+    depth = 70.0
+    height = 50.0
+
+    glPushMatrix()
+    glTranslatef(-200+depth/2 , 0, 200-width/2)  # Center of the plane
 
     # Front face
     glBegin(GL_QUADS)
