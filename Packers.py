@@ -32,72 +32,42 @@ class Packer():
         return filled_area / float(total_area)
 
 
-    def fit(self, rects: list[Rect]) -> list[Rect]:
-        for rect in rects:
-            # Find a suitable node for the rectangle
-            node = self.find_node(self.root, rect.w, rect.h)
+    def fit(self, rects:list[Rect], auto_bounds:bool=False) -> list[Rect]:
+        """ 
+        Fit the given rects into the bounds. if auto bounds is set to true the bounds will
+        expand everytime the fit is unsuccessful in packing all rects
+        """
+        successful_fit = False
+        self.rects = rects
 
-            # If a node is found, split it and assign the rectangle's fit
-            if node:
-                rect.fit = self.split_node(node, rect.w, rect.h)
+        while True:
+            self.rects = self._fit(rects)
+            
+            successful_fit = (0 == self.n_outside_bounds())
 
-            # Set the inbounds variable based on the rectangle's position
-            if rect.fit:
-                rect.inbounds = (
-                    0 <= rect.fit.x and
-                    0 <= rect.fit.y and
-                    rect.fit.x + rect.w <= self.bounds[0] and
-                    rect.fit.y + rect.h <= self.bounds[1]
-                )
+            if successful_fit or not auto_bounds:
+                return self.rects
             else:
-                rect.inbounds = False
-
-        # Second pass: compact floating rectangles
-        for rect in rects:
-            if not rect.inbounds:
-                node = self.find_node(self.root, rect.w, rect.h)
-                if node:
-                    rect.fit = self.split_node(node, rect.w, rect.h)
-                    rect.inbounds = True
-
-        return rects
+                self.increment_size()
 
 
     def _fit(self, rects:list[Rect]) -> list[Rect]:
         ...
 
 
-    def find_node(self, node: Node, w: int, h: int) -> Node:
-        # If the current node is used, prioritize 'down' before 'right'
+    def find_node(self, node:Node, w:int, h:int) -> Node:
         if node.used:
-            return self.find_node(node.down, w, h) or self.find_node(node.right, w, h)
-        # Check if the rectangle fits in this node
+            return self.find_node(node.right, w, h) or self.find_node(node.down, w, h)
         elif w <= node.w and h <= node.h:
             return node
         else:
             return None
 
 
-    def split_node(self, node: Node, w: int, h: int) -> Node:
-        # Mark the node as used
+    def split_node(self, node:Node, w:int, h:int) -> Node:
         node.used = True
-        
-        # Ensure the node has enough space for splitting
-        if node.h < h or node.w < w:
-            raise ValueError("Invalid split: Node size is too small for the rectangle.")
-        
-        # Create the down node (below the placed rectangle)
-        node.down = Node(
-            origin=(node.x, node.y + h),
-            size=(node.w, node.h - h)
-        )
-        
-        # Create the right node (to the right of the placed rectangle)
-        node.right = Node(
-            origin=(node.x + w, node.y),
-            size=(node.w - w, h)
-        )
-        
+        node.down = Node(origin=(node.x, node.y + h), size=(node.w, node.h - h))
+        node.right = Node(origin=(node.x + w, node.y), size=(node.w - w, h))
         return node
 
 
