@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 
-from TestCases import all_cases
 from Packers import SimplePacker, AdvancedPacker
 from Node import Rect
 

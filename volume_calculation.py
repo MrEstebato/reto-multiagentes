@@ -3,7 +3,6 @@ import time
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 
-from TestCases import all_cases
 from Packers import SimplePacker, AdvancedPacker
 from Node import Rect
 from binpacking import sort, plot, draw_rect, sort_types
@@ -166,9 +165,7 @@ def calculate_volume(Options):
     df_output = pd.DataFrame(data)
     df_output.to_csv(outputCsvName, index=False)
 
-    dims = all_cases[1]
     size = (1.22, 1.60)
-    dims = sort(dims, sort_attr="max")
     
     for i in range(len(racks_dimension)):
     #rects = [Rect(d) for d in dims]
