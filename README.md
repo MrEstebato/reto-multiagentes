@@ -18,11 +18,7 @@
     ![Rack Secos 2](imagenesREADME/Figure_2_BinPacking.png)
     ![Rack Secos 3](imagenesREADME/Figure_3_BinPacking.png)
 
-  El comando de la simulación es el siguiente: `python Main.py Simulacion` Este comando ejecuta la simulación usando multiagentes que se mueven a cada nodo (rack). Tiene las siguientes variables en el parser:
-
-  - lifters: El número de agentes que habrá en la simulación
-  - Basuras: El número de ingredientes a depositar en los racks
-  - Delta: Velocidad de la simulación
+  El comando de la simulación es el siguiente: `python Main.py Simulacion` Este comando ejecuta la simulación usando multiagentes que se mueven a cada nodo (rack).
 
   El comando secundario para obtener el volumen de los ingredientes congelados es `python VolumenCongelados.py`.
   
