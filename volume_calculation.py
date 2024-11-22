@@ -1,5 +1,13 @@
 import pandas as pd
 import time
+import matplotlib.pyplot as plt
+from matplotlib.patches import Rectangle
+
+from TestCases import all_cases
+from Packers import SimplePacker, AdvancedPacker
+from Node import Rect
+from binpacking import sort, plot, draw_rect, sort_types
+import sys
 
 
 def calculate_volume(Options):
@@ -86,6 +94,9 @@ def calculate_volume(Options):
     current_rack = {"S": [], "R": [], "C": []}
     current_racksize = {"S": 0, "R": 0, "C": 0}
 
+    racks_dimension = []
+    current_rack_dimensions = []
+
     for condition in ["S", "R", "C"]:
         total_rack_capacity = rack_capacity[condition]
         condition_products = csv_file[csv_file["Condicion"] == condition]
@@ -93,6 +104,7 @@ def calculate_volume(Options):
             prod_amount = int(row["C. Ajustado"])
             prod_name = row["DESCRIPCION COMPLETA"]
             volume_per_unit = float(row["Volumen Ajustado"])
+            current_dimensions = (float(row["Altura"]/100), float(row['Ancho']/100))
 
             if volume_per_unit > total_rack_capacity:
                 print(
@@ -106,20 +118,33 @@ def calculate_volume(Options):
                     current_rack[condition].append(prod_name)
                     current_racksize[condition] += volume_per_unit
                     prod_amount -= 1
+                    if (condition == "S"):
+                        current_rack_dimensions.append(current_dimensions)
                 else:
                     # Rack is full, save it and start a new rack
                     racks[condition].append(current_rack[condition])
                     current_rack[condition] = []
                     current_racksize[condition] = 0
+                    
+                    if (condition == "S"):
+                        racks_dimension.append(current_rack_dimensions)
+                        current_dimensions = (0, 0)
+                        current_rack_dimensions = []
 
             # After processing all items, check if the current rack has items
         if current_rack[condition]:
             racks[condition].append(current_rack[condition])
             current_rack[condition] = []
             current_racksize[condition] = 0
+            
+            if (condition == "S"):
+                racks_dimension.append(current_rack_dimensions)
+                current_rack_dimensions = []
+                current_dimensions = (0, 0)
 
     # Prepare data for CSV
     data = []
+    print(racks_dimension)
 
     def process_racks(rack_list, condition):
         for idx, rack in enumerate(rack_list, start=1):
@@ -141,6 +166,23 @@ def calculate_volume(Options):
     df_output = pd.DataFrame(data)
     df_output.to_csv(outputCsvName, index=False)
 
+    dims = all_cases[1]
+    size = (1.22, 1.60)
+    dims = sort(dims, sort_attr="max")
+    rects = [Rect(d) for d in dims]
+    new_rects = [Rect(d) for d in racks_dimension[2]]
+
+    print(new_rects)
+
+    sys.setrecursionlimit(20000)
+    p = SimplePacker(*size)
+    #p = AdvancedPacker(*size)
+    
+    new_rects = p.fit(new_rects, auto_bounds=False)
+    print(new_rects)
+    plot(1.22, 1.6, new_rects)
+
 
 if __name__ == "__main__":
     calculate_volume()
+    

@@ -2,7 +2,7 @@
 
 ## Ejecución
 
-  `Python Main.py BinPacking --ListaCSV Prod2.csv --Confianza 10.0 --VRackC 122:46:160 --VRackR 80.01:208.03:213.61 --VRackS 182.9:195.5:60.96 --salidaCSV volCalculado.csv`
+  `Python Main.py BinPacking --ListaCSV Prod6.csv --Confianza 7.43 --VRackC 122:46:160 --VRackR 80.01:208.03:213.61 --VRackS 182.9:195.5:60.96 --salidaCSV volCalculado.csv`
 
 ## Conformación del Equipo
 
