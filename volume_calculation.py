@@ -169,18 +169,20 @@ def calculate_volume(Options):
     dims = all_cases[1]
     size = (1.22, 1.60)
     dims = sort(dims, sort_attr="max")
-    rects = [Rect(d) for d in dims]
-    new_rects = [Rect(d) for d in racks_dimension[2]]
-
-    print(new_rects)
-
-    sys.setrecursionlimit(20000)
-    p = SimplePacker(*size)
-    #p = AdvancedPacker(*size)
     
-    new_rects = p.fit(new_rects, auto_bounds=False)
-    print(new_rects)
-    plot(1.22, 1.6, new_rects)
+    for i in range(len(racks_dimension)):
+    #rects = [Rect(d) for d in dims]
+        new_rects = [Rect(d) for d in racks_dimension[i]]
+
+        print(new_rects)
+
+        sys.setrecursionlimit(20000)
+        p = SimplePacker(*size)
+        #p = AdvancedPacker(*size)
+    
+        new_rects = p.fit(new_rects)
+        print(new_rects)
+        plot(1.22, 1.6, new_rects)
 
 
 if __name__ == "__main__":
