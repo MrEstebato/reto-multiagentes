@@ -3,10 +3,10 @@
 ## Ejecución
 
   El comando principal de ejecución es el siguiente:
-  `Python Main.py BinPacking --ListaCSV Prod6.csv --Confianza 7.43 --VRackC 122:46:160 --VRackR 80.01:208.03:213.61 --VRackS 182.9:195.5:60.96 --salidaCSV volCalculado.csv`
+  `Python Main.py BinPacking --ListaCSV Prod7.csv --Confianza 7.43 --VRackC 122:46:160 --VRackR 80.01:208.03:213.61 --VRackS 182.9:195.5:60.96 --salidaCSV volCalculado.csv`
   Tiene las variables en el parser:
 
-  - ListaCsv: La lista de productos proporcionada por el socio formador. Para este programa se tiene que usar una versión modificada de los datos ya que los ajustamos para que los cálculos fueran más precisos. Por esta razón se tiene que usar el csv `Prod6.csv`
+  - ListaCsv: La lista de productos proporcionada por el socio formador. Para este programa se tiene que usar una versión modificada de los datos ya que los ajustamos para que los cálculos fueran más precisos. Por esta razón se tiene que usar el csv `Prod7.csv` Ademas de que este csv no incluye la harina ni el aceite que no se almacenan en racks.
   - Confianza: Es el márgen de error.
   - VRackC: Son las medidas de los racks que se usarán para guardar ingredientes congelados.
   - VRackR: Son las medidas de los racks que se usarán para guardar ingredientes refrigerados.
