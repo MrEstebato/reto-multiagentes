@@ -86,6 +86,8 @@ def calculate_volume(Options):
         f"Se necesitarian: \n ------------------------------------\n {cold_total_volume_per_average/rack_uline_volume} Racks Uline \n"
     )
 
+    time.sleep(5)
+
     print(dry_group)
 
     rack_capacity = {"S": VolRackS_m3, "R": VolRackR_m3, "C": VolRackC_m3}
