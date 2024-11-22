@@ -1,7 +1,8 @@
 import pandas as pd
+import time
 
 
-def VolCalc(Options):
+def calculate_volume(Options):
 
     inputCsvName = Options.ListaCSV
     outputCsvName = Options.salidaCSV
@@ -80,34 +81,49 @@ def VolCalc(Options):
 
     print(dry_group)
 
-    racks = []
-    rack_not_full = []
-    rack_members_mark_volume = 1.9
-    for i in range(len(dry_group)):
-        prod_amount = dry_group["C. Maximo"].iloc[i]
-        print(prod_amount)
-        prod_name = dry_group["DESCRIPCION COMPLETA"].iloc[i]
-        print(prod_name)
-        _rack = rack_not_full
-        _racksize = rack_members_mark_volume
-        while prod_amount > 0:
-            _racksize -= dry_group["Volumen (m^3)"].iloc[i]
-            prod_amount -= 1
-            _rack.append(prod_name)
-            if _racksize <= 0:
-                racks.append(_rack)
-                _rack = []
-                rack_not_full = []
-                _racksize = rack_members_mark_volume
-        if _rack:
-            racks.append(_rack)
-        rack_not_full = _rack
+    rack_capacity = {"S": VolRackS_m3, "R": VolRackR_m3, "C": VolRackC_m3}
+    racks = {"S": [], "R": [], "C": []}
+    current_rack = {"S": [], "R": [], "C": []}
+    current_racksize = {"S": 0, "R": 0, "C": 0}
 
+    for condition in ["S", "R", "C"]:
+        total_rack_capacity = rack_capacity[condition]
+        condition_products = csv_file[csv_file["Condicion"] == condition]
+        for _, row in condition_products.iterrows():
+            prod_amount = int(row["C. Ajustado"])
+            prod_name = row["DESCRIPCION COMPLETA"]
+            volume_per_unit = float(row["Volumen Ajustado"])
+
+            if volume_per_unit > total_rack_capacity:
+                print(
+                    f"El producto {prod_name} es muy grande para el rack de tipo {condition}"
+                )
+                continue
+
+            while prod_amount > 0:
+                remaining_capacity = total_rack_capacity - current_racksize[condition]
+                if remaining_capacity >= volume_per_unit:
+                    current_rack[condition].append(prod_name)
+                    current_racksize[condition] += volume_per_unit
+                    prod_amount -= 1
+                else:
+                    # Rack is full, save it and start a new rack
+                    racks[condition].append(current_rack[condition])
+                    current_rack[condition] = []
+                    current_racksize[condition] = 0
+
+            # After processing all items, check if the current rack has items
+        if current_rack[condition]:
+            racks[condition].append(current_rack[condition])
+            current_rack[condition] = []
+            current_racksize[condition] = 0
+
+    # Prepare data for CSV
     data = []
 
-    def process_racks(rack_list, prefix):
+    def process_racks(rack_list, condition):
         for idx, rack in enumerate(rack_list, start=1):
-            rack_name = f"{prefix}{idx}"
+            rack_name = f"{condition}{idx}"
             product_counts = {}
             for product in rack:
                 product_counts[product] = product_counts.get(product, 0) + 1
@@ -116,10 +132,15 @@ def VolCalc(Options):
                     {"Product": product, "Rack": rack_name, "Quantity": quantity}
                 )
 
-    # Create a DataFrame and save to CSV
-    df = pd.DataFrame(data)
-    df.to_csv("rack_inventory.csv", index=False)
+    # Process racks for each condition
+    process_racks(racks["S"], "S")
+    process_racks(racks["R"], "R")
+    process_racks(racks["C"], "C")
+
+    # Create DataFrame and save to CSV
+    df_output = pd.DataFrame(data)
+    df_output.to_csv(outputCsvName, index=False)
 
 
 if __name__ == "__main__":
-    main()
+    calculate_volume()

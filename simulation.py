@@ -6,201 +6,219 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
-textures = [];
-lifters = [];
-delta = 0;
+textures = []
+lifters = []
+delta = 0
+
 
 def GeneracionDeNodos():
-	print("")
+    print("")
+
 
 def loadSettingsYAML(File):
-	class Settings: pass
-	with open(File) as f:
-		docs = yaml.load_all(f, Loader = yaml.FullLoader)
-		for doc in docs:
-			for k, v in doc.items():
-				setattr(Settings, k, v)
-	return Settings;
+    class Settings:
+        pass
+
+    with open(File) as f:
+        docs = yaml.load_all(f, Loader=yaml.FullLoader)
+        for doc in docs:
+            for k, v in doc.items():
+                setattr(Settings, k, v)
+    return Settings
 
 
-Settings = loadSettingsYAML("Settings.yaml");	
+Settings = loadSettingsYAML("Settings.yaml")
+
 
 def Texturas(filepath):
-	# Arreglo para el manejo de texturas
-	global textures;
-	textures.append(glGenTextures(1))
-	id = len(textures) - 1
-	glBindTexture(GL_TEXTURE_2D, textures[id])
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
-	image = pygame.image.load(filepath).convert()
-	w, h = image.get_rect().size
-	image_data = pygame.image.tostring(image, "RGBA")
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data)
-	glGenerateMipmap(GL_TEXTURE_2D)
-	
+    # Arreglo para el manejo de texturas
+    global textures
+    textures.append(glGenTextures(1))
+    id = len(textures) - 1
+    glBindTexture(GL_TEXTURE_2D, textures[id])
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+    image = pygame.image.load(filepath).convert()
+    w, h = image.get_rect().size
+    image_data = pygame.image.tostring(image, "RGBA")
+    glTexImage2D(
+        GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data
+    )
+    glGenerateMipmap(GL_TEXTURE_2D)
+
+
 def Init(Options):
-	global textures, lifters
-	screen = pygame.display.set_mode( (Settings.screen_width, Settings.screen_height), DOUBLEBUF | OPENGL)
-	pygame.display.set_caption("Simulacion PontePizza")
-	
+    global textures, lifters
+    screen = pygame.display.set_mode(
+        (Settings.screen_width, Settings.screen_height), DOUBLEBUF | OPENGL
+    )
+    pygame.display.set_caption("Simulacion PontePizza")
 
-	glMatrixMode(GL_PROJECTION)
-	glLoadIdentity()
-	gluPerspective(Settings.FOVY, Settings.screen_width/Settings.screen_height, Settings.ZNEAR, Settings.ZFAR)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(
+        Settings.FOVY,
+        Settings.screen_width / Settings.screen_height,
+        Settings.ZNEAR,
+        Settings.ZFAR,
+    )
 
-	glMatrixMode(GL_MODELVIEW)
-	glLoadIdentity()
-	gluLookAt(
-	Settings.EYE_X,
-	Settings.EYE_Y,
-	Settings.EYE_Z,
-	Settings.CENTER_X,
-	Settings.CENTER_Y,
-	Settings.CENTER_Z,
-	Settings.UP_X,
-	Settings.UP_Y,
-	Settings.UP_Z)
-	glClearColor(0,0,0,0)
-	glEnable(GL_DEPTH_TEST)
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
-	
-	for File in glob.glob(Settings.Materials + "*.*"):
-		Texturas(File)
-	
-	# Posiciones inicales de los montacargas
-	Positions = numpy.zeros((Options.lifters, 3))
-	
-	NodosCarga = 10*[[70,0,70]];
-	
-	CurrentNode = 0;
-   
-	for i, p in enumerate(Positions):
-		# i es el identificator del agente
-		lifters.append(Lifter(Settings.DimBoard, 0.7, textures, i, p, CurrentNode ))
-	
-		
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    gluLookAt(
+        Settings.EYE_X,
+        Settings.EYE_Y,
+        Settings.EYE_Z,
+        Settings.CENTER_X,
+        Settings.CENTER_Y,
+        Settings.CENTER_Z,
+        Settings.UP_X,
+        Settings.UP_Y,
+        Settings.UP_Z,
+    )
+    glClearColor(0, 0, 0, 0)
+    glEnable(GL_DEPTH_TEST)
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
+
+    for File in glob.glob(Settings.Materials + "*.*"):
+        Texturas(File)
+
+    # Posiciones inicales de los montacargas
+    Positions = numpy.zeros((Options.lifters, 3))
+
+    NodosCarga = 10 * [[70, 0, 70]]
+
+    CurrentNode = 0
+
+    for i, p in enumerate(Positions):
+        # i es el identificator del agente
+        lifters.append(Lifter(Settings.DimBoard, 0.7, textures, i, p, CurrentNode))
+
+
 def planoText():
-	# Enable textures
-	glEnable(GL_TEXTURE_2D)
-	glBindTexture(GL_TEXTURE_2D, textures[5])  # Use the first texture
+    # Enable textures
+    glEnable(GL_TEXTURE_2D)
+    glBindTexture(GL_TEXTURE_2D, textures[5])  # Use the first texture
 
-	glColor(1.0, 1.0, 1.0)
-	
-	glBegin(GL_QUADS)
-	glTexCoord2f(0.0, 0.0)
-	glVertex3d(-Settings.DimBoard, 0, -Settings.DimBoard)
-		
-	glTexCoord2f(0.0, 1.0)
-	glVertex3d(-Settings.DimBoard, 0, Settings.DimBoard)		
-	glTexCoord2f(1.0, 1.0)
-	glVertex3d(Settings.DimBoard, 0, Settings.DimBoard)
-		
-	glTexCoord2f(1.0, 0.0)
-	glVertex3d(Settings.DimBoard, 0, -Settings.DimBoard)
-	glEnd()
-	
-	# Disable textures
-	glDisable(GL_TEXTURE_2D)
+    glColor(1.0, 1.0, 1.0)
+
+    glBegin(GL_QUADS)
+    glTexCoord2f(0.0, 0.0)
+    glVertex3d(-Settings.DimBoard, 0, -Settings.DimBoard)
+
+    glTexCoord2f(0.0, 1.0)
+    glVertex3d(-Settings.DimBoard, 0, Settings.DimBoard)
+    glTexCoord2f(1.0, 1.0)
+    glVertex3d(Settings.DimBoard, 0, Settings.DimBoard)
+
+    glTexCoord2f(1.0, 0.0)
+    glVertex3d(Settings.DimBoard, 0, -Settings.DimBoard)
+    glEnd()
+
+    # Disable textures
+    glDisable(GL_TEXTURE_2D)
+
 
 def display():
-	global lifters, delta
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-	
-	#Se dibuja cubos
-	for obj in lifters:
-		obj.draw()
-		obj.update(delta)
+    global lifters, delta
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
-	# Se dibuja el incinerador
-	glColor3f(1.0, 0.5, 0.0)  # Color: Naranja
-	square_size = 20.0  # Tamaño
+    # Se dibuja cubos
+    for obj in lifters:
+        obj.draw()
+        obj.update(delta)
 
-	half_size = square_size / 2.0
-	glBegin(GL_QUADS)
-	glVertex3d(-half_size, 0.5, -half_size)
-	glVertex3d(-half_size, 0.5, half_size)
-	glVertex3d(half_size, 0.5, half_size)
-	glVertex3d(half_size, 0.5, -half_size)
-	glEnd()
-	
-	#Se dibuja el plano gris
-	planoText()
-	drawColumn()
-	drawColumn2()
-	drawColumn3()
+    # Se dibuja el incinerador
+    glColor3f(1.0, 0.5, 0.0)  # Color: Naranja
+    square_size = 20.0  # Tamaño
 
-	glColor3f(0.3, 0.3, 0.3)
-	glBegin(GL_QUADS)
-	glVertex3d(-Settings.DimBoard, 0, -Settings.DimBoard)
-	glVertex3d(-Settings.DimBoard, 0, Settings.DimBoard)
-	glVertex3d(Settings.DimBoard, 0, Settings.DimBoard)
-	glVertex3d(Settings.DimBoard, 0, -Settings.DimBoard)
-	glEnd()
-	
-	# Draw the walls bounding the plane
-	wall_height = 50.0  # Adjust the wall height as needed
-	
-	glColor3f(0.8, 0.8, 0.8)  # Light gray color for walls
-	
-	glEnable(GL_TEXTURE_2D)
-	
-	# Draw the left wall with texture
-	glBindTexture(GL_TEXTURE_2D, textures[3])  # Replace 4 with your texture index for walls
-	glBegin(GL_QUADS)
-	glTexCoord2f(0.0, 0.0)
-	glVertex3d(-Settings.DimBoard, 0, -Settings.DimBoard)
-	glTexCoord2f(1.0, 0.0)
-	glVertex3d(-Settings.DimBoard, 0, Settings.DimBoard)
-	glTexCoord2f(1.0, 1.0)
-	glVertex3d(-Settings.DimBoard, wall_height, Settings.DimBoard)
-	glTexCoord2f(0.0, 1.0)
-	glVertex3d(-Settings.DimBoard, wall_height, -Settings.DimBoard)
-	glEnd()
+    half_size = square_size / 2.0
+    glBegin(GL_QUADS)
+    glVertex3d(-half_size, 0.5, -half_size)
+    glVertex3d(-half_size, 0.5, half_size)
+    glVertex3d(half_size, 0.5, half_size)
+    glVertex3d(half_size, 0.5, -half_size)
+    glEnd()
 
-	# Draw the right wall with texture
-	glBindTexture(GL_TEXTURE_2D, textures[3])  # Use the same or a different texture
-	glBegin(GL_QUADS)
-	glTexCoord2f(0.0, 0.0)
-	glVertex3d(Settings.DimBoard, 0, -Settings.DimBoard)
-	glTexCoord2f(1.0, 0.0)
-	glVertex3d(Settings.DimBoard, 0, Settings.DimBoard)
-	glTexCoord2f(1.0, 1.0)
-	glVertex3d(Settings.DimBoard, wall_height, Settings.DimBoard)
-	glTexCoord2f(0.0, 1.0)
-	glVertex3d(Settings.DimBoard, wall_height, -Settings.DimBoard)
-	glEnd()
+    # Se dibuja el plano gris
+    planoText()
+    drawColumn()
+    drawColumn2()
+    drawColumn3()
 
-	# Draw the front wall with texture
-	glBindTexture(GL_TEXTURE_2D, textures[3])
-	glBegin(GL_QUADS)
-	glTexCoord2f(0.0, 0.0)
-	glVertex3d(-Settings.DimBoard, 0, Settings.DimBoard)
-	glTexCoord2f(1.0, 0.0)
-	glVertex3d(Settings.DimBoard, 0, Settings.DimBoard)
-	glTexCoord2f(1.0, 1.0)
-	glVertex3d(Settings.DimBoard, wall_height, Settings.DimBoard)
-	glTexCoord2f(0.0, 1.0)
-	glVertex3d(-Settings.DimBoard, wall_height, Settings.DimBoard)
-	glEnd()
+    glColor3f(0.3, 0.3, 0.3)
+    glBegin(GL_QUADS)
+    glVertex3d(-Settings.DimBoard, 0, -Settings.DimBoard)
+    glVertex3d(-Settings.DimBoard, 0, Settings.DimBoard)
+    glVertex3d(Settings.DimBoard, 0, Settings.DimBoard)
+    glVertex3d(Settings.DimBoard, 0, -Settings.DimBoard)
+    glEnd()
 
-	# Draw the back wall with texture
-	glBindTexture(GL_TEXTURE_2D, textures[3])
-	glBegin(GL_QUADS)
-	glTexCoord2f(0.0, 0.0)
-	glVertex3d(-Settings.DimBoard, 0, -Settings.DimBoard)
-	glTexCoord2f(1.0, 0.0)
-	glVertex3d(Settings.DimBoard, 0, -Settings.DimBoard)
-	glTexCoord2f(1.0, 1.0)
-	glVertex3d(Settings.DimBoard, wall_height, -Settings.DimBoard)
-	glTexCoord2f(0.0, 1.0)
-	glVertex3d(-Settings.DimBoard, wall_height, -Settings.DimBoard)
-	glEnd()
+    # Draw the walls bounding the plane
+    wall_height = 50.0  # Adjust the wall height as needed
 
-	# Disable textures after drawing walls
-	glDisable(GL_TEXTURE_2D)
+    glColor3f(0.8, 0.8, 0.8)  # Light gray color for walls
+
+    glEnable(GL_TEXTURE_2D)
+
+    # Draw the left wall with texture
+    glBindTexture(
+        GL_TEXTURE_2D, textures[3]
+    )  # Replace 4 with your texture index for walls
+    glBegin(GL_QUADS)
+    glTexCoord2f(0.0, 0.0)
+    glVertex3d(-Settings.DimBoard, 0, -Settings.DimBoard)
+    glTexCoord2f(1.0, 0.0)
+    glVertex3d(-Settings.DimBoard, 0, Settings.DimBoard)
+    glTexCoord2f(1.0, 1.0)
+    glVertex3d(-Settings.DimBoard, wall_height, Settings.DimBoard)
+    glTexCoord2f(0.0, 1.0)
+    glVertex3d(-Settings.DimBoard, wall_height, -Settings.DimBoard)
+    glEnd()
+
+    # Draw the right wall with texture
+    glBindTexture(GL_TEXTURE_2D, textures[3])  # Use the same or a different texture
+    glBegin(GL_QUADS)
+    glTexCoord2f(0.0, 0.0)
+    glVertex3d(Settings.DimBoard, 0, -Settings.DimBoard)
+    glTexCoord2f(1.0, 0.0)
+    glVertex3d(Settings.DimBoard, 0, Settings.DimBoard)
+    glTexCoord2f(1.0, 1.0)
+    glVertex3d(Settings.DimBoard, wall_height, Settings.DimBoard)
+    glTexCoord2f(0.0, 1.0)
+    glVertex3d(Settings.DimBoard, wall_height, -Settings.DimBoard)
+    glEnd()
+
+    # Draw the front wall with texture
+    glBindTexture(GL_TEXTURE_2D, textures[3])
+    glBegin(GL_QUADS)
+    glTexCoord2f(0.0, 0.0)
+    glVertex3d(-Settings.DimBoard, 0, Settings.DimBoard)
+    glTexCoord2f(1.0, 0.0)
+    glVertex3d(Settings.DimBoard, 0, Settings.DimBoard)
+    glTexCoord2f(1.0, 1.0)
+    glVertex3d(Settings.DimBoard, wall_height, Settings.DimBoard)
+    glTexCoord2f(0.0, 1.0)
+    glVertex3d(-Settings.DimBoard, wall_height, Settings.DimBoard)
+    glEnd()
+
+    # Draw the back wall with texture
+    glBindTexture(GL_TEXTURE_2D, textures[3])
+    glBegin(GL_QUADS)
+    glTexCoord2f(0.0, 0.0)
+    glVertex3d(-Settings.DimBoard, 0, -Settings.DimBoard)
+    glTexCoord2f(1.0, 0.0)
+    glVertex3d(Settings.DimBoard, 0, -Settings.DimBoard)
+    glTexCoord2f(1.0, 1.0)
+    glVertex3d(Settings.DimBoard, wall_height, -Settings.DimBoard)
+    glTexCoord2f(0.0, 1.0)
+    glVertex3d(-Settings.DimBoard, wall_height, -Settings.DimBoard)
+    glEnd()
+
+    # Disable textures after drawing walls
+    glDisable(GL_TEXTURE_2D)
 
 
 def drawColumn():
@@ -289,6 +307,7 @@ def drawColumn():
     glPopMatrix()
     glDisable(GL_TEXTURE_2D)
 
+
 def drawColumn2():
 
     glEnable(GL_TEXTURE_2D)
@@ -299,7 +318,7 @@ def drawColumn2():
     height = 70.0
 
     glPushMatrix()
-    glTranslatef(0.0, 0.0, -200+ depth/2)  # Center of the plane
+    glTranslatef(0.0, 0.0, -200 + depth / 2)  # Center of the plane
 
     # Front face
     glBegin(GL_QUADS)
@@ -375,6 +394,7 @@ def drawColumn2():
 
     glPopMatrix()
     glDisable(GL_TEXTURE_2D)
+
 
 def drawColumn3():
     glEnable(GL_TEXTURE_2D)
@@ -385,7 +405,7 @@ def drawColumn3():
     height = 70.0
 
     glPushMatrix()
-    glTranslatef(-200 + width/2, 0.0, 0)  # Center of the plane
+    glTranslatef(-200 + width / 2, 0.0, 0)  # Center of the plane
 
     # Front face
     glBegin(GL_QUADS)
@@ -461,6 +481,7 @@ def drawColumn3():
 
     glPopMatrix()
     glDisable(GL_TEXTURE_2D)
+
 
 def drawColumn4():
     glEnable(GL_TEXTURE_2D)
@@ -471,7 +492,7 @@ def drawColumn4():
     height = 70.0
 
     glPushMatrix()
-    glTranslatef(-200 + width/2, 0.0, 0)  # Center of the plane
+    glTranslatef(-200 + width / 2, 0.0, 0)  # Center of the plane
 
     # Front face
     glBegin(GL_QUADS)
@@ -548,53 +569,54 @@ def drawColumn4():
     glPopMatrix()
     glDisable(GL_TEXTURE_2D)
 
-def lookAt(theta):
-	glLoadIdentity()
-	rad = theta * math.pi / 180
-	newX = Settings.EYE_X * math.cos(rad) + Settings.EYE_Z * math.sin(rad)
-	newZ = -Settings.EYE_X * math.sin(rad) + Settings.EYE_Z * math.cos(rad)
-	gluLookAt(
-	newX,
-	Settings.EYE_Y,
-	newZ,
-	Settings.CENTER_X,
-	Settings.CENTER_Y,
-	Settings.CENTER_Z,
-	Settings.UP_X,
-	Settings.UP_Y,
-	Settings.UP_Z)	
-	
-	
-	
-def Simulacion(Options):
-	# Variables para el control del observador
-	global delta;
-	theta = Options.theta
-	radius = Options.radious
-	delta = Options.Delta
-	Init(Options);
-	while True:
-		keys = pygame.key.get_pressed()  # Checking pressed keys
-		for event in pygame.event.get():
-			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_ESCAPE or event.type == pygame.QUIT:
-					pygame.quit()	
-					return
-		if keys[pygame.K_RIGHT]:
-			if theta > 359.0:
-				theta = 0
-			else:
-				theta += 1.0
-		lookAt(theta)
-		if keys[pygame.K_LEFT]:
-			if theta < 1.0:
-				theta = 360.0;
-			else:
-				theta -= 1.0
-		lookAt(theta)
-		display()
-		display()
-		pygame.display.flip()
-		pygame.time.wait(10)
 
-	#
+def lookAt(theta):
+    glLoadIdentity()
+    rad = theta * math.pi / 180
+    newX = Settings.EYE_X * math.cos(rad) + Settings.EYE_Z * math.sin(rad)
+    newZ = -Settings.EYE_X * math.sin(rad) + Settings.EYE_Z * math.cos(rad)
+    gluLookAt(
+        newX,
+        Settings.EYE_Y,
+        newZ,
+        Settings.CENTER_X,
+        Settings.CENTER_Y,
+        Settings.CENTER_Z,
+        Settings.UP_X,
+        Settings.UP_Y,
+        Settings.UP_Z,
+    )
+
+
+def Simulacion(Options):
+    # Variables para el control del observador
+    global delta
+    theta = Options.theta
+    radius = Options.radious
+    delta = Options.Delta
+    Init(Options)
+    while True:
+        keys = pygame.key.get_pressed()  # Checking pressed keys
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE or event.type == pygame.QUIT:
+                    pygame.quit()
+                    return
+        if keys[pygame.K_RIGHT]:
+            if theta > 359.0:
+                theta = 0
+            else:
+                theta += 1.0
+        lookAt(theta)
+        if keys[pygame.K_LEFT]:
+            if theta < 1.0:
+                theta = 360.0
+            else:
+                theta -= 1.0
+        lookAt(theta)
+        display()
+        display()
+        pygame.display.flip()
+        pygame.time.wait(10)
+
+    #

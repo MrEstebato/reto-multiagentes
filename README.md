@@ -1,34 +1,40 @@
 # Reto Multiagentes
 
+## Ejecución
+
+  ´Python Main.py BinPacking --ListaCSV Prod2.csv --Confianza 10.0 --VRackC 122:46:160 --VRackR 80.01:208.03:213.61 --VRackS 182.9:195.5:60.96 --salidaCSV volCalculado.csv´
+
 ## Conformación del Equipo
 
 **Integrantes del equipo**  
+
 - Esteban Leal Menéndez - Colíder y desarrollador  
   - **Fortalezas:** Soy una persona entusiasta que aprende rápido. Me gusta retarme y descubrir talentos nuevos. Trabajo bien en equipo y soy líder cuando se necesita.
   - **Áreas de oportunidad:** Puedo llegar a procrastinar tareas lo cual me puede llegar a generar estrés y disminuir mi eficiencia y eficacia.
   - **Expectativas del bloque:** Espero fortalecer el trabajo en equipo, fortalecer la comunicación y el análisis espacial.
- 
+
 - Daniel Arteaga Mercado - Líder  
   - **Fortalezas:** Soy una persona responsable y comprometida con los objetivos planteados, me desenvuelvo de manera adecuada al trabajar colaborativamente y siempre trato de aportar ideas innovadoras/creativas.
   - **Áreas de oportunidad:** A veces no comunico asertivamente mis ideas y me cuesta asignar tiempos específicos para la realización de tarea.
   - **Expectativas del bloque:** Espero poder trabajar de manera fluida y eficiente junto con el socio formador para poder lograr, como equipo, un producto final con calidad en el que apliquemos los conocimientos adquiridos en la materia y al mismo tiempo aporte valor a la empresa del socio.  
- 
+
 - Stephanie Ortega Espinosa - Coordinadora y diseñadora
   - **Fortalezas:** Me considero una persona enfocada, atenta a los detalles, líder y buena coordinadora.
   - **Áreas de oportunidad:** Creo que puedo mejorar en mi compromiso respecto al esfuerzo requerido en cada tarea.
   - **Expectativas del bloque:** Espero desarrollar y reforzar ciertas áreas enfocadas a las matemáticas.
- 
+
 - Gabriel Ponce Peña - Desarrollador
   - **Fortalezas:** Cuento con habilidades en diversas tecnologías de programación, como Java, JavaScript, React, Node y Python, entre otras. Además, tengo sólidas habilidades blandas esenciales para el desarrollo diario.
   - **Áreas de oportunidad:** Reconozco que tengo una oportunidad de mejora en cuanto a la procrastinación, ya que tiendo a esperar hasta el último momento en algunos proyectos.
   - **Expectativas del bloque:** Espero reforzar los distintos conocimientos que sean relevantes para mi carrera profesional, de la misma manera que han sido reforzado a lo largo de la universidad
- 
+
 - Ángel Rogelio Cruz Ibarra - Analista  
   - **Fortalezas:** Me considero una persona creativa, proactiva y con habilidades para resolver problemas de manera efectiva.
   - **Áreas de oportunidad:** Quiero mejorar en la gestión del tiempo y en la planificación de tareas para ser más eficiente.
   - **Expectativas del bloque:** Espero adquirir conocimientos prácticos sobre la logística y la gestión de inventarios en un entorno real.
 
 **Expectativas del equipo**  
+
 - ¿Qué esperan lograr como equipo al finalizar el bloque?
   - Como equipo, esperamos finalizar el bloque con una solución eficiente que optimice el espacio de almacenamiento y la logística de distribución en Ponte Pizza, logrando una reducción de tiempos y costos en las entregas a sucursales. Además, buscamos fortalecer nuestras habilidades técnicas y de trabajo colaborativo, así como generar resultados cuantificables que demuestren la efectividad de nuestro sistema. Al concluir, aspiramos a entregar una documentación completa que sirva como base para futuras mejoras y optimizaciones en los procesos de la empresa.
 - Listado de metas específicas del equipo para este proyecto.
