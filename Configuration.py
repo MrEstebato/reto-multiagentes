@@ -2,23 +2,29 @@ from copy import deepcopy
 from Rect import Rect
 from util import PointType, plot_configuration, initialize_plot
 
+
 class Configuration:
 
     # The amount to look in each direction when determining if a corner is concave
     eps = 0.001
 
-    def __init__(self, size: tuple, unpacked_rects: list, packed_rects: list[Rect] = [], enable_plotting: bool = False) -> None:
+    def __init__(
+        self,
+        size: tuple,
+        unpacked_rects: list,
+        packed_rects: list[Rect] = [],
+        enable_plotting: bool = False,
+    ) -> None:
         self.size = size
-        
+
         self.unpacked_rects = unpacked_rects
         self.packed_rects = packed_rects
         self.plotting = enable_plotting
-        
+
         self.generate_L()
 
         if self.plotting:
             initialize_plot(self)
-            
 
     def __copy__(self):
         cls = self.__class__
@@ -37,7 +43,7 @@ class Configuration:
     def enable_plotting(self):
         self.plotting = False
 
-    # TODO: Can be alot faster by taking the most recently placed rect as input - and only generating 
+    # TODO: Can be alot faster by taking the most recently placed rect as input - and only generating
     #       new ccoas for points that are contained in the new rect
     def generate_L(self):
         """
@@ -47,7 +53,7 @@ class Configuration:
         ----------
         C: Configuration, required
             The current configuration
-        
+
         remaining_rects: list[tuple], required:
             The dimensions of the rects yet to be packed. On the format: (w,h)
         """
@@ -68,13 +74,13 @@ class Configuration:
 
         self.L = ccoas
 
-    def get_concave_corners(self) -> list[tuple[tuple,PointType]]:
-        concave_corners: list[tuple(tuple,PointType)] = []
+    def get_concave_corners(self) -> list[tuple[tuple, PointType]]:
+        concave_corners: list[tuple(tuple, PointType)] = []
 
         for corner in self.get_all_corners():
             corner_type = self.get_corner_type(corner)
             if corner_type:
-                concave_corners.append((corner,corner_type))
+                concave_corners.append((corner, corner_type))
 
         return concave_corners
 
@@ -87,23 +93,27 @@ class Configuration:
 
     def check_boundaries(self, p: tuple):
         return [
-            self.contains((p[0]+self.eps, p[1]+self.eps)),
-            self.contains((p[0]-self.eps, p[1]+self.eps)),
-            self.contains((p[0]+self.eps, p[1]-self.eps)),
-            self.contains((p[0]-self.eps, p[1]-self.eps))
+            self.contains((p[0] + self.eps, p[1] + self.eps)),
+            self.contains((p[0] - self.eps, p[1] + self.eps)),
+            self.contains((p[0] + self.eps, p[1] - self.eps)),
+            self.contains((p[0] - self.eps, p[1] - self.eps)),
         ]
 
     def contains(self, point: tuple) -> bool:
         # Return true if point is out of bounds
-        if point[0] <= 0 or point[1] <= 0 or self.size[0] <= point[0] or self.size[1] <= point[1]:
+        if (
+            point[0] <= 0
+            or point[1] <= 0
+            or self.size[0] <= point[0]
+            or self.size[1] <= point[1]
+        ):
             return True
-        
+
         # Check if any of the packed rects contain the point
         for r in self.packed_rects:
             if r.contains(point):
                 return True
         return False
-
 
     def fits(self, ccoa: Rect) -> bool:
         """
@@ -111,32 +121,35 @@ class Configuration:
         or being out of bounds
         """
         # Check if the ccoa is out of bounds in any way
-        if ccoa.origin[0] < 0 or ccoa.origin[1] < 0 or self.size[0] < ccoa.origin[0] + ccoa.width or self.size[1] < ccoa.origin[1] + ccoa.height:
+        if (
+            ccoa.origin[0] < 0
+            or ccoa.origin[1] < 0
+            or self.size[0] < ccoa.origin[0] + ccoa.width
+            or self.size[1] < ccoa.origin[1] + ccoa.height
+        ):
             return False
-        
+
         # Check if the rect overlaps any of the already packed rects
         for rect in self.packed_rects:
             if ccoa.overlaps(rect):
                 return False
         return True
 
-
     def place_rect(self, rect: Rect) -> None:
         # Add rect to packed rects
         self.packed_rects.append(rect)
 
         # Remove the rect from unpacked rects
-        if (rect.width,rect.height) in self.unpacked_rects:
-            self.unpacked_rects.remove((rect.width,rect.height))
+        if (rect.width, rect.height) in self.unpacked_rects:
+            self.unpacked_rects.remove((rect.width, rect.height))
         elif (rect.height, rect.width) in self.unpacked_rects:
             self.unpacked_rects.remove((rect.height, rect.width))
 
-        self.generate_L() # TODO: Do somehing like passing the just placed rect for more efficiency
+        self.generate_L()  # TODO: Do somehing like passing the just placed rect for more efficiency
 
         # Create plot
         if self.plotting:
             plot_configuration(self, self.is_successful())
-
 
     def density(self) -> float:
         """
@@ -145,8 +158,7 @@ class Configuration:
         total_area = self.size[0] * self.size[1]
         occupied_area = sum([x.area for x in self.packed_rects])
 
-        return occupied_area/total_area
-
+        return occupied_area / total_area
 
     def get_all_corners(self) -> list[tuple]:
         """
@@ -154,13 +166,17 @@ class Configuration:
         """
 
         # The container corners
-        corners = [(0,0), (0,self.size[1]), (self.size[0],0), self.size]
+        corners = [(0, 0), (0, self.size[1]), (self.size[0], 0), self.size]
 
         # Get corners for every rect
         for rect in self.packed_rects:
-            corners += [rect.corner_bot_l, rect.corner_bot_r, rect.corner_top_l, rect.corner_top_r]
+            corners += [
+                rect.corner_bot_l,
+                rect.corner_bot_r,
+                rect.corner_top_l,
+                rect.corner_top_r,
+            ]
         return list(set(corners))
-
 
     def is_successful(self) -> bool:
         return len(self.unpacked_rects) == 0

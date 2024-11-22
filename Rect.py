@@ -2,11 +2,19 @@ from copy import deepcopy
 from math import sqrt
 from util import PointType
 
+
 class Rect:
 
-    def __init__(self, origin: tuple, width:float, height:float, origin_type: PointType = PointType.BOTTOM_LEFT, rotated:bool = False) -> None:
+    def __init__(
+        self,
+        origin: tuple,
+        width: float,
+        height: float,
+        origin_type: PointType = PointType.BOTTOM_LEFT,
+        rotated: bool = False,
+    ) -> None:
         """
-        A container class and data structure for a rect representing a box to be packed. 
+        A container class and data structure for a rect representing a box to be packed.
         Main functionality consists of wrapping and data and checking if rects overlap contain points etc.
 
         Parameters
@@ -25,9 +33,9 @@ class Rect:
 
         rotated, bool
             boolean value indicating whether the rect is rotated
-        """        
+        """
 
-        assert(0 < width and 0 < height)
+        assert 0 < width and 0 < height
 
         if rotated:
             temp = height
@@ -43,28 +51,26 @@ class Rect:
             self.origin = (origin[0] - width, origin[1])
         if origin_type == PointType.TOP_RIGHT:
             self.origin = (origin[0] - width, origin[1] - height)
-        
+
         self.width = width
         self.height = height
         self.rotated = rotated
 
         self.bottom = self.origin[1]
-        self.top = self.origin[1]+self.height
+        self.top = self.origin[1] + self.height
         self.left = self.origin[0]
-        self.right = self.origin[0]+self.width
+        self.right = self.origin[0] + self.width
 
         self.corner_bot_l = (self.left, self.bottom)
         self.corner_top_l = (self.left, self.top)
         self.corner_top_r = (self.right, self.top)
         self.corner_bot_r = (self.right, self.bottom)
 
-
     def __copy__(self):
         cls = self.__class__
         result = cls.__new__(cls)
         result.__dict__.update(self.__dict__)
         return result
-
 
     def __deepcopy__(self, memo):
         cls = self.__class__
@@ -74,16 +80,18 @@ class Rect:
             setattr(result, k, deepcopy(v, memo))
         return result
 
-
     @property
     def area(self) -> float:
         return self.width * self.height
 
-
     def contains(self, point: tuple) -> bool:
-        """ Return whether the rect contains a given point (x,y) """
-        return self.corner_bot_l[0] <= point[0] and self.corner_bot_l[1] <= point[1] and point[0] <= self.corner_top_r[0] and point[1] <= self.corner_top_r[1]
-
+        """Return whether the rect contains a given point (x,y)"""
+        return (
+            self.corner_bot_l[0] <= point[0]
+            and self.corner_bot_l[1] <= point[1]
+            and point[0] <= self.corner_top_r[0]
+            and point[1] <= self.corner_top_r[1]
+        )
 
     def min_distance(self, other) -> float:
         """
@@ -104,7 +112,6 @@ class Rect:
         # TODO: Might be able to remove a sqrt here, not sure
         return sqrt(inner_width**2 + inner_height**2)
 
-
     def overlaps(self, other) -> bool:
         """
         Returns wether two Rects overlap
@@ -114,7 +121,6 @@ class Rect:
         if self.top <= other.bottom or other.top <= self.bottom:
             return False
         return True
-        
 
     def __iter__(self):
         """
@@ -126,4 +132,6 @@ class Rect:
         yield self.corner_bot_r
 
     def __repr__(self):
-        return "R = (({}, {}), w={}, h={},r={})".format(self.origin[0], self.origin[1], self.width, self.height,self.rotated)
+        return "R = (({}, {}), w={}, h={},r={})".format(
+            self.origin[0], self.origin[1], self.width, self.height, self.rotated
+        )

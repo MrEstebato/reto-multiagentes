@@ -105,7 +105,7 @@ def calculate_volume(Options):
             prod_amount = int(row["C. Ajustado"])
             prod_name = row["DESCRIPCION COMPLETA"]
             volume_per_unit = float(row["Volumen Ajustado"])
-            current_dimensions = (float(row["Altura"]/100), float(row['Ancho']/100))
+            current_dimensions = (float(row["Altura"] / 100), float(row["Ancho"] / 100))
 
             if volume_per_unit > total_rack_capacity:
                 print(
@@ -119,15 +119,15 @@ def calculate_volume(Options):
                     current_rack[condition].append(prod_name)
                     current_racksize[condition] += volume_per_unit
                     prod_amount -= 1
-                    if (condition == "S"):
+                    if condition == "S":
                         current_rack_dimensions.append(current_dimensions)
                 else:
                     # Rack is full, save it and start a new rack
                     racks[condition].append(current_rack[condition])
                     current_rack[condition] = []
                     current_racksize[condition] = 0
-                    
-                    if (condition == "S"):
+
+                    if condition == "S":
                         racks_dimension.append(current_rack_dimensions)
                         current_dimensions = (0, 0)
                         current_rack_dimensions = []
@@ -137,8 +137,8 @@ def calculate_volume(Options):
             racks[condition].append(current_rack[condition])
             current_rack[condition] = []
             current_racksize[condition] = 0
-            
-            if (condition == "S"):
+
+            if condition == "S":
                 racks_dimension.append(current_rack_dimensions)
                 current_rack_dimensions = []
                 current_dimensions = (0, 0)
@@ -168,17 +168,17 @@ def calculate_volume(Options):
     df_output.to_csv(outputCsvName, index=False)
 
     size = (1.22, 1.60)
-    
+
     for i in range(len(racks_dimension)):
-    #rects = [Rect(d) for d in dims]
+        # rects = [Rect(d) for d in dims]
         new_rects = [Rect(d) for d in racks_dimension[i]]
 
         print(new_rects)
 
         sys.setrecursionlimit(20000)
         p = SimplePacker(*size)
-        #p = AdvancedPacker(*size)
-    
+        # p = AdvancedPacker(*size)
+
         new_rects = p.fit(new_rects)
         print(new_rects)
         plot(1.22, 1.6, new_rects)
@@ -186,4 +186,3 @@ def calculate_volume(Options):
 
 if __name__ == "__main__":
     calculate_volume()
-    

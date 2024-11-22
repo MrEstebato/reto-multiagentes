@@ -22,7 +22,7 @@
 
   El comando de la simulación es el siguiente: `python Main.py Simulacion` Este comando ejecuta la simulación usando multiagentes que se mueven a cada nodo (rack).
   Vista Aerea de la simulación
-  ![Vista Aerea](imagenesREADME/simulation_screenshot)
+  ![Vista Aerea](imagenesREADME/simulation_screenshot.png)
 
   El comando secundario para obtener el volumen de los ingredientes congelados es `python VolumenCongelados.py`.
   

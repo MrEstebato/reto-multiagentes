@@ -5,18 +5,19 @@ from Packers import SimplePacker, AdvancedPacker
 from Node import Rect
 
 
-sort_types = {"width":0, "height":1, "max":2, "area":3}    
+sort_types = {"width": 0, "height": 1, "max": 2, "area": 3}
 
-def sort(rects:list[tuple], sort_attr:str='width') -> list[tuple]:
-    """ Function for sorting a list of rects using a given sorting method """
 
-    if sort_attr == 'none':
+def sort(rects: list[tuple], sort_attr: str = "width") -> list[tuple]:
+    """Function for sorting a list of rects using a given sorting method"""
+
+    if sort_attr == "none":
         return rects
 
-    # Add attributes to the rects to use for sorting parameters; 
+    # Add attributes to the rects to use for sorting parameters;
     # r = (w, h, max(w,h), w*h)
-    attr = [r + (max(r), r[0]*r[1]) for r in rects]
-    
+    attr = [r + (max(r), r[0] * r[1]) for r in rects]
+
     # Get the index of the inputted sorting type, if invalid width is used (0=width)
     sort_attr_index = sort_types.get(sort_attr, 0)
 
@@ -25,12 +26,12 @@ def sort(rects:list[tuple], sort_attr:str='width') -> list[tuple]:
     return [x[:2] for x in attr]
 
 
-def plot(limx, limy, rects:list[Rect], figsize:tuple=(7,7)) -> None:
-    """ Plot a collection of rects """
+def plot(limx, limy, rects: list[Rect], figsize: tuple = (7, 7)) -> None:
+    """Plot a collection of rects"""
     _, ax = plt.subplots(figsize=figsize)
 
-    ax.set_xlim([0,rects[0].fit.w])
-    ax.set_ylim([0,rects[0].fit.h])
+    ax.set_xlim([0, rects[0].fit.w])
+    ax.set_ylim([0, rects[0].fit.h])
     plt.locator_params(axis="both", integer=True, tight=True)
 
     for r in rects:
@@ -44,22 +45,23 @@ def plot(limx, limy, rects:list[Rect], figsize:tuple=(7,7)) -> None:
 
 
 def draw_rect(ax, rect: Rect) -> None:
-    """ Draw a single rect object """
-    box = Rectangle(rect.fit.origin, rect.w, rect.h, fc='lightblue',ec='black',alpha=1.0)
+    """Draw a single rect object"""
+    box = Rectangle(
+        rect.fit.origin, rect.w, rect.h, fc="lightblue", ec="black", alpha=1.0
+    )
     ax.add_patch(box)
 
 
-#if __name__ == "__main__":
-#    
+# if __name__ == "__main__":
+#
 #    dims = all_cases[1]
 #    size = (122, 160)
 #    dims = sort(dims, sort_attr="max")
 #    rects = [Rect(d) for d in dims]
-#    #new_rects = 
+#    #new_rects =
 #
 #    #p = SimplePacker(*size)
 #    p = AdvancedPacker(*size)
-#    
+#
 #    rects = p.fit(rects, auto_bounds=True)
 #    plot(rects)
-
