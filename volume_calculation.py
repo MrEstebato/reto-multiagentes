@@ -6,6 +6,7 @@ from matplotlib.patches import Rectangle
 from Packers import SimplePacker, AdvancedPacker
 from Node import Rect
 from binpacking import sort, plot, draw_rect, sort_types
+from VolumeFrozen import getVolumenCongelados
 import sys
 
 
@@ -181,6 +182,8 @@ def calculate_volume(Options):
         new_rects = p.fit(new_rects)
         print(new_rects)
         plot(1.22, 1.6, new_rects)
+
+    getVolumenCongelados()
 
 
 if __name__ == "__main__":
