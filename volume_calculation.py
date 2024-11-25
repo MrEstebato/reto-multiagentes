@@ -90,15 +90,15 @@ def calculate_volume(Options):
 
     print(dry_group)
 
-    rack_capacity = {"S": VolRackS_m3, "R": VolRackR_m3, "C": VolRackC_m3}
-    racks = {"S": [], "R": [], "C": []}
-    current_rack = {"S": [], "R": [], "C": []}
-    current_racksize = {"S": 0, "R": 0, "C": 0}
+    rack_capacity = {"S": VolRackS_m3, "R": VolRackR_m3}
+    racks = {"S": [], "R": []}
+    current_rack = {"S": [], "R": []}
+    current_racksize = {"S": 0, "R": 0}
 
     racks_dimension = []
     current_rack_dimensions = []
 
-    for condition in ["S", "R", "C"]:
+    for condition in ["S", "R"]:
         total_rack_capacity = rack_capacity[condition]
         condition_products = csv_file[csv_file["Condicion"] == condition]
         for _, row in condition_products.iterrows():
@@ -161,7 +161,6 @@ def calculate_volume(Options):
     # Process racks for each condition
     process_racks(racks["S"], "S")
     process_racks(racks["R"], "R")
-    process_racks(racks["C"], "C")
 
     # Create DataFrame and save to CSV
     df_output = pd.DataFrame(data)
